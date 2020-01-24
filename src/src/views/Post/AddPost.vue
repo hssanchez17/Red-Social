@@ -6,28 +6,21 @@
 
   <div class="container">
     <div class="row row justify-content-md-center">
-
-    <div class="col-md-8">
+      <div class="col-md-8">
         <div class="card">
-
           <div class="card-header bg-secondary">
               <h3 class="card-title text-white">Upload an Image</h3>
           </div>
 
           <div class="card-body text-center">
+
             <div class="form-group">
               <div class="input-group">
                 <div class="custom-file">
 
-
-                  <!--<input type="file" name="image" class="custom-file-input" id="inputGroupFile" aria-describedby="inputGroupFileAddon" required/>-->
-                  <input type="file"
-                   @change="onFileSelected"   
-                   class="custom-file-input">
-
-
-
+                  <input type="file"@change="onFileSelected" class="custom-file-input">
                   <label class="custom-file-label" for="inputGroupFile">Choose file</label>
+
                 </div>
               </div>
             </div>
@@ -41,9 +34,13 @@
               <textarea name="description" rows="2" class="form-control" placeholder="Deescription for the Image" v-model.trim="description" required></textarea>
             </div>
 
+             <div class="progress">
+  <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
 
-              <button class="btn btn-success" @click="onUpload()">Upload Image
-              </button>
+
+
+            <button class="btn btn-success" @click="onUpload()">Upload Image</button>
   
 
           
@@ -77,7 +74,6 @@ export default {
     methods:{
        onFileSelected(event){
         this.selectedFile=event.target.files[0]
-        console.log(this.selectedFile)
       },
 
       onUpload(){
@@ -86,7 +82,11 @@ export default {
         fd.append('description',this.description)
         fd.append('title',this.title)
 
-         this.axios.post('post/create', fd)
+         this.axios.post('post/create', fd,{
+          onUploadProgress: uploadEvent => {
+            console.log("Upload progress:"+ Math.round(uploadEvent.loaded/uploadEvent.total*100)+'%')
+          }
+          })
          .then(res => {
             alert('se creo el post correctamente')
             this.$router.push({ path: `/home` })
@@ -101,7 +101,7 @@ export default {
       },
 
 
-      selectFile(){
+      /*selectFile(){
         this.file=this.$refs.file.files[0]
         console.log(this.file)
         console.log(this.Title)
@@ -122,7 +122,7 @@ export default {
             console.log(e)  
 
           })
-        }    
+        }    */
 
       }
     
@@ -130,7 +130,7 @@ export default {
 </script>
 
 <style scoped>
-  .container{
-        margin-top: 1.5%
+.container{
+  margin-top: 1.5%
 }
 </style>

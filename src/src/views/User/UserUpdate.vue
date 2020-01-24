@@ -48,12 +48,12 @@
 		          ></b-form-input>
 
 		        </b-form-group>
-          	
+
+                <div class="progress">
+  <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
           	</b-form>
-
-
-
-
 
             <div class="form-group">
               <button class="btn btn-success" @click="updateProfile()">Editar Perfil</button>
@@ -89,6 +89,7 @@ export default {
         },
         originalEmail:'',
         submitEmail: false,
+        contador:0
         
       }
     },
@@ -128,9 +129,12 @@ export default {
     	},
 
       updateProfile(){
-        this.axios.put('profile/edit',this.user)
+        this.axios.put('profile/edit',this.user,{
+          onUploadProgress:uploadEvent=>{
+            console.log("Upload progress:"+ Math.round(uploadEvent.loaded/uploadEvent.total*100+'%'))
+          }
+        })
          .then(res => {
-          console.log(this.user)
           alert('Se actualizo el usuario correctamente')
           this.$router.push({ path: `/user/profile` })
         })

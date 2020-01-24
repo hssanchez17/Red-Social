@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     title:DataTypes.STRING
   }, {});
   Post.associate = function(models) {
-    // associations can be defined here
+    Post.hasMany(models.Like,{ foreignKey: 'postId', as:'like'});
   };
   return Post;
 };
