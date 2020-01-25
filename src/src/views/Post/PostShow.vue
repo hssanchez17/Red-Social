@@ -46,27 +46,66 @@
               </div>
             </div>
 
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <button class="btn btn-success" id="btn-like"  v-if="!didYouLeaveTheLike"@click="like()">
+                <i class="far fa-thumbs-up"></i> Like
+              </button>
+
+               <button class="btn btn-danger" id="btn-like"  v-if="didYouLeaveTheLike"@click="dislike()">
+                <i class="far fa-thumbs-up"></i> Dislike
+              </button>
+
+              <p>
+                <span class="likes-count">{{likes}}</span>
+                <i class="fas fa-heart"></i>
+              </p>
+
+              <p>
+                <i class="fas fa-eye"></i> 50
+              </p>
+            </div>
           </div>
 
-          <div class="card-footer d-flex justify-content-between align-items-center">
-            <button class="btn btn-success" id="btn-like"  v-if="!didYouLeaveTheLike"@click="like()">
-              <i class="far fa-thumbs-up"></i> Like
-            </button>
+          <!-- COMMENTS -->
 
-             <button class="btn btn-danger" id="btn-like"  v-if="didYouLeaveTheLike"@click="dislike()">
-              <i class="far fa-thumbs-up"></i> Dislike
-            </button>
+          <div class="card mt-2">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h3>Comments</h3>
+              <button class="btn btn-info" id="btn-toggle-comment" @click="showAddComment()">
+                <i class="fa fa-comments-o"></i> Post a Comment
+              </button>
+            </div>
 
-            <p>
-              <span class="likes-count">{{likes}}</span>
-              <i class="fas fa-heart"></i>
-            </p>
+            <div class="card-body" v-if="showComment">
+              <blockquote id="post-comment">
 
-            <p>
-              <i class="fas fa-eye"></i> 50
-            </p>
-        </div>
-        
+                  <div class="form-group">
+                    <textarea name="comment" class="form-control" rows="2" placeholder="Your Comment" v-model="comment.comment"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-success" id="btn-comment" @click="addAComment(comment)">
+                      <i class="fa fa-comment"></i> Post
+                    </button>
+                  </div>    
+              </blockquote>
+            </div>
+
+            <ul class="list-group p-4" v-for="comment2 in comments">
+              <li class="list-group-item">
+              <div class="row">
+                <blockquote class="col">
+                  <p class="lead">{{comment2.comment}}</p>
+                </blockquote>
+              </div>
+            </li>
+          </ul>
+
+
+          </div>
+
+
+<!-- COMMENTS -->
+
         </div>
 	     </div>
 	   </div>
@@ -89,7 +128,10 @@ export default {
         editar:false,
         dueñoDelPost:'',
         likes:'0',
-        didYouLeaveTheLike:false
+        didYouLeaveTheLike:false,
+        showComment:false,
+        comments:{},
+        comment:{comment:''}
       }
   	},
 
@@ -112,6 +154,10 @@ export default {
         })
       },
 
+      showAddComment(){
+        this.showComment=true
+      },
+
       didYouLeaveTheLike2(){
         this.axios.get(`like/didYouLeaveTheLike/${this.id}`)
         .then((response)=>{
@@ -121,15 +167,15 @@ export default {
         .catch((e)=>{
           console.log('error' + e);
         })
-
       },
-
 
 	    getPost(){
 	      this.axios.get(`post/show/${this.id}`)
 	      .then((response) => {
 	        this.post= response.data[0];
           this.likes=this.post.like.length
+          this.comments=this.post.comments
+          console.log(this.comments)
 	      })
 	      .catch((e)=>{
 	        console.log('error' + e);
@@ -190,6 +236,21 @@ export default {
         .catch( e => {
           console.log(e.response.data.error)
         })
+      },
+
+      addAComment(comment){
+        this.axios.post(`comment/add/${this.id}`,comment)
+        .then((response) => {
+          console.log(response)
+          alert('Se agrego el comentario exitosamente')
+          this.comments.unshiftz(comment)
+           this.comment=''
+        })
+        .catch( e => {
+          console.log(e.response.data.error)
+        })
+
+
       }
 
   	}

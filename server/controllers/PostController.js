@@ -24,7 +24,7 @@ module.exports={
     show(req,res){
         model.Post.findAll({
             where: {id:req.params.id},
-            include:['like']
+            include:['like','comments']
         })
         .then(function(post){
             if(post[0]==null) res.status(400).json('Error: No existe este post')

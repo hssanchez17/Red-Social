@@ -14,7 +14,8 @@ const {checkAuthentication}=require('./controllers/auth/AuthenticationController
 //Controllers
 const userController = require('./controllers/UserController');
 const postController = require('./controllers/PostController');
-const likeController = require('./controllers/LikeController')
+const likeController = require('./controllers/LikeController');
+const commentController= require('./controllers/CommentController');
 
 //Middlewares
 const { ensureAuthenticated, forwardAuthenticated } = require('./middlewares/auth');
@@ -50,5 +51,9 @@ router.get('/user/show/:id',userController.show)
 router.post('/like/add/:id',likeController.create)
 router.get('/like/didYouLeaveTheLike/:id',likeController.didYouLeaveTheLike)
 router.delete('/like/destroy/:id',likeController.destroy)
+
+
+//Rutas de los comentarios
+router.post('/comment/add/:id',commentController.create)
 
 module.exports = router;
