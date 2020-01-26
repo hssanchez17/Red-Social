@@ -8,7 +8,7 @@ module.exports={
     		postId: req.params.id,
     		comment: req.body.comment
 		})
-		.then(function(){res.send(200,{message:'El comentario se ha creado exitosamente'})})
+		.then(function(){res.send(200,{email: req.user.email})})
         .catch(err => res.status(400).json('Error: ' + err));
 	},
 
@@ -25,5 +25,28 @@ module.exports={
         .then(function(){res.send(200,{message:'El like se ha eliminado exitosamente'})})
         .catch(err => res.status(400).json('Error: ' + err));
     },
+
+    getAlldCommentsFromAPost(req,res){
+        model.Comment.findAll({
+            where:{postId:req.params.id},
+            include:['user']
+        })
+        .then(function(comments){res.send(comments)})
+        .catch(err => res.status(400).json('Error: ' + err));
+    },
+
+
+    getCommentsFromUser(req,res){
+         model.Comment.findAll({
+            where:{
+                postId:req.params.id,
+                userId:req.user.id
+            },
+            include:['user']
+        })
+        .then(function(comments){res.send(comments)})
+        .catch(err => res.status(400).json('Error: ' + err));
+
+    }
 
 }

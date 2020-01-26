@@ -71,16 +71,22 @@
           <div class="card mt-2">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h3>Comments</h3>
-              <button class="btn btn-info" id="btn-toggle-comment" @click="showAddComment()">
-                <i class="fa fa-comments-o"></i> Post a Comment
+
+              <button class="btn btn-success" id="btn-toggle-comment" @click="showMyComments2()">
+                <i class="fa fa-comments-o"></i> Show All Comments
+              </button>
+
+
+              <button class="btn btn-success" id="btn-toggle-comment" @click="showAllComments()">
+                <i class="fa fa-comments-o"></i> My comments
               </button>
             </div>
 
-            <div class="card-body" v-if="showComment">
+            <div class="card-body">
               <blockquote id="post-comment">
 
                   <div class="form-group">
-                    <textarea name="comment" class="form-control" rows="2" placeholder="Your Comment" v-model="comment.comment"></textarea>
+                    <textarea name="comment" class="form-control" rows="2" placeholder="Leave your Comment" v-model="comment.comment"></textarea>
                   </div>
                   <div class="form-group">
                     <button class="btn btn-success" id="btn-comment" @click="addAComment(comment)">
@@ -90,15 +96,36 @@
               </blockquote>
             </div>
 
-            <ul class="list-group p-4" v-for="comment2 in comments">
+            <ul class="list-group p-4" v-for="comment2 in comments" v-if="showMyComments">
               <li class="list-group-item">
-              <div class="row">
-                <blockquote class="col">
-                  <p class="lead">{{comment2.comment}}</p>
-                </blockquote>
-              </div>
-            </li>
-          </ul>
+                <div class="row">
+                  <a :href="`/user/show/${comment2.userId}`" class="col text-center">
+                    <img :src="post.imageUrl" id="images" width="120px" height="120px" class="img-circle" />
+                  </a>
+
+                  <blockquote class="col">
+                    <p class="lead">{{comment2.comment}}</p>
+                    <footer class="blockquote-footer">{{comment2.user.email}}</footer>
+                  </blockquote>
+                </div>
+              </li>
+            </ul>
+
+
+            <ul class="list-group p-4" v-for="comment3 in myComments" v-if="!showMyComments">
+              <li class="list-group-item">
+                <div class="row">
+                  <a :href="`/user/show/${comment3.userId}`" class="col text-center">
+                    <img :src="post.imageUrl" id="images" width="120px" height="120px" class="img-circle" />
+                  </a>
+
+                  <blockquote class="col">
+                    <p class="lead">{{comment3.comment}}</p>
+                    <footer class="blockquote-footer">{{comment3.user.email}}</footer>
+                  </blockquote>
+                </div>
+              </li>
+            </ul>
 
 
           </div>
@@ -131,17 +158,23 @@ export default {
         didYouLeaveTheLike:false,
         showComment:false,
         comments:{},
-        comment:{comment:''}
+        comment:{comment:'',user:{
+          email:''}},
+        showMyComments:false,
+        myComments:{}
       }
   	},
 
   	created(){
     	this.getPost(),
       this.getEnsurePostOwner(),
-      this.didYouLeaveTheLike2()
+      this.didYouLeaveTheLike2(),
+      this.getComments(),
+      this.getCommentsFromUser()
   	},
 
   	methods:{
+      
       getEnsurePostOwner(){
         this.axios.get(`post/ensurePostOwner/${this.id}`)
         .then((response) => {
@@ -170,17 +203,40 @@ export default {
       },
 
 	    getPost(){
-	      this.axios.get(`post/show/${this.id}`)
+	      this.axios.get(`post/show/${this.id}`,{ credentials: true })
 	      .then((response) => {
 	        this.post= response.data[0];
           this.likes=this.post.like.length
-          this.comments=this.post.comments
-          console.log(this.comments)
+          //console.log(response.data[0])
+          //this.comments=this.post.comments
+          //console.log(response.data[0].comments)
 	      })
 	      .catch((e)=>{
 	        console.log('error' + e);
 	      })
 	    },
+
+      getComments(){
+        this.axios.get(`/comment/show/${this.id}`)
+        .then((response) => {
+          this.comments=response.data
+        })
+        .catch((e)=>{
+          console.log('error' + e);
+        })
+      },
+
+      getCommentsFromUser(){
+        this.axios.get(`/comment/from/user/${this.id}`)
+        .then((response) => {
+          console.log(response.data)
+          this.myComments=response.data
+        })
+        .catch((e)=>{
+          console.log('error' + e);
+        })
+
+      },
 
       destroyPost(){
         this.axios.delete(`post/destroy/${this.id}`)
@@ -241,18 +297,28 @@ export default {
       addAComment(comment){
         this.axios.post(`comment/add/${this.id}`,comment)
         .then((response) => {
-          console.log(response)
           alert('Se agrego el comentario exitosamente')
-          this.comments.unshiftz(comment)
-           this.comment=''
+          comment.user.email=response.data.email
+          this.comments.unshift(comment)
+          this.comment.comment=''
+          this.getComments()
+
+
         })
         .catch( e => {
           console.log(e.response.data.error)
         })
+      },
+
+      showMyComments2(){
+        this.showMyComments=true
+        console.log(this.showMyComments)
+      },
 
 
+      showAllComments(){
+        this.showMyComments=false
       }
-
   	}
 
     	

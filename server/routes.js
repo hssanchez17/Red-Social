@@ -55,5 +55,8 @@ router.delete('/like/destroy/:id',likeController.destroy)
 
 //Rutas de los comentarios
 router.post('/comment/add/:id',commentController.create)
+router.get('/comment/show/:id',commentController.getAlldCommentsFromAPost)
+router.get('/comment/from/user/:id',commentController.getCommentsFromUser)
+
 
 module.exports = router;
