@@ -41,13 +41,17 @@
               <li class="list-group-item">
                 <div class="row">
                   <a :href="`/user/show/${comment2.userId}`" class="col text-center">
-                    <img :src="post.imageUrl" id="images" width="120px" height="120px" class="img-circle" />
-                  </a>-
+                    <img :src="post.imageUrl" id="images" width="120px" height="120px"/>
+                  </a>
 
-                  <blockquote class="col">
+                 
+                  <blockquote class="col" v-if="permisionToUpdate">
                     <p class="lead">{{comment2.comment}}</p>
                     <footer class="blockquote-footer">{{comment2.user.email}}</footer>
                   </blockquote>
+
+                   <button class="btn btn-info" id="btn-toggle-comment" @click="editComment(comment2.id)">  Update</button>
+                   <button class="btn btn-danger" id="btn-toggle-comment" @click="editComment(comment2.id)">  Delete</button>
                 </div>
               </li>
             </ul>
@@ -72,7 +76,8 @@
         comments:{},
         comment:{comment:'',user:{email:''}},
         showMyComments:false,
-        myComments:{}
+        myComments:{},
+        permisionToUpdate:true
       }
   	},
 
@@ -133,6 +138,10 @@
 
       showAllComments(){
         this.showMyComments=false
+      },
+
+      editComment(id){
+        console.log(id)
       }
   	}
 

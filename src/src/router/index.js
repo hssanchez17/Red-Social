@@ -40,7 +40,13 @@ const routes = [
     path:'/post/show/:id',
     name:'ShowPost',
     component:()=>import('../views/Post/PostShow.vue')
-  }
+  },
+  {
+    path:'/comment/show/:id',
+    name:'showComment',
+    component:()=>import('../views/Comment/ShowComment.vue')
+  },
+
 ]
 
 const router = new VueRouter({

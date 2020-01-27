@@ -57,6 +57,7 @@ router.delete('/like/destroy/:id',likeController.destroy)
 router.post('/comment/add/:id',commentController.create)
 router.get('/comment/show/:id',commentController.getAlldCommentsFromAPost)
 router.get('/comment/from/user/:id',commentController.getCommentsFromUser)
+router.get('/comment/show2/:id',commentController.getComment)
 
 
 module.exports = router;

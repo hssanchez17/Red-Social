@@ -14,15 +14,25 @@ module.exports={
 
 	update (req,res){
         model.Comment.update({    
-        	comment: req.body.comment
-        }, {where: {id: req.body.id}})
+            comment: req.body.comment
+        }, 
+        {where: {id: req.body.id}})
         .then(function(){ res.send(200,{message:'El usuario se ha modificado exitosamente'})})
         .catch(err => res.status(400).json('Error: ' + err));   
     },
 
-     destroy(req,res){
+    destroy(req,res){
         model.Comment.destroy({where: {id: req.params.id}})
         .then(function(){res.send(200,{message:'El like se ha eliminado exitosamente'})})
+        .catch(err => res.status(400).json('Error: ' + err));
+    },
+
+    getComment(req,res) {
+         model.Comment.findAll({
+            where:{id:req.params.id},
+            include:['user']
+        })
+        .then(function(comment){res.send(comment)})
         .catch(err => res.status(400).json('Error: ' + err));
     },
 
@@ -37,7 +47,7 @@ module.exports={
 
 
     getCommentsFromUser(req,res){
-         model.Comment.findAll({
+        model.Comment.findAll({
             where:{
                 postId:req.params.id,
                 userId:req.user.id
@@ -46,7 +56,6 @@ module.exports={
         })
         .then(function(comments){res.send(comments)})
         .catch(err => res.status(400).json('Error: ' + err));
-
     }
 
 }
