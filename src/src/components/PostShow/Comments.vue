@@ -29,7 +29,10 @@
                   </a>
 
                   <blockquote class="col">
-                    <p class="lead">{{comment1.comment}}</p>
+                    <a :href="`/comment/show/${comment1.id}`" class="col text-center">
+                      <p class="lead">{{comment1.comment}}</p>
+                    </a>
+
                     <footer class="blockquote-footer">{{comment1.user.email}}</footer>
                   </blockquote>
                 </div>
@@ -46,7 +49,9 @@
 
                  
                   <blockquote class="col" v-if="permisionToUpdate">
-                    <p class="lead">{{comment2.comment}}</p>
+                   <a :href="`/comment/show/${comment2.id}`" class="col text-center">
+                      <p class="lead">{{comment2.comment}}</p>
+                    </a>
                     <footer class="blockquote-footer">{{comment2.user.email}}</footer>
                   </blockquote>
 
