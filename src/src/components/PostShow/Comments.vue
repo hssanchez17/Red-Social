@@ -50,8 +50,7 @@
                     <footer class="blockquote-footer">{{comment2.user.email}}</footer>
                   </blockquote>
 
-                   <button class="btn btn-info" id="btn-toggle-comment" @click="editComment(comment2.id)">  Update</button>
-                   <button class="btn btn-danger" id="btn-toggle-comment" @click="editComment(comment2.id)">  Delete</button>
+
                 </div>
               </li>
             </ul>

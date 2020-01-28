@@ -16,7 +16,7 @@ module.exports={
         model.Comment.update({    
             comment: req.body.comment
         }, 
-        {where: {id: req.body.id}})
+        {where: {id: req.params.id}})
         .then(function(){ res.send(200,{message:'El usuario se ha modificado exitosamente'})})
         .catch(err => res.status(400).json('Error: ' + err));   
     },
@@ -27,12 +27,18 @@ module.exports={
         .catch(err => res.status(400).json('Error: ' + err));
     },
 
-    getComment(req,res) {
-         model.Comment.findAll({
+    getCommentWithOwnerPermission(req,res) {
+        model.Comment.findAll({
             where:{id:req.params.id},
             include:['user']
         })
-        .then(function(comment){res.send(comment)})
+        .then(function(comment){
+            let commentOwner=false
+            if(req.user.id==comment[0].userId) commentOwner=true 
+            res.send({comment:comment,commentOwner:commentOwner})
+
+
+        })
         .catch(err => res.status(400).json('Error: ' + err));
     },
 
