@@ -30,6 +30,32 @@ module.exports={
         })
         .then(function(user){res.send(user)})
         .catch(err => res.status(400).json('Error: ' + err));
+    },
+
+    searchProfiles(req,res){
+        const Op = Sequelize.Op;
+
+        model.User.findAll({
+            where: {
+                    [Op.or]: [
+                        {
+                          nombre: {
+                            [Op.iLike]: `%${req.body.name}%`
+                          }
+                        }
+                        
+                    ],
+                },
+
+
+        })
+        .then(function (resultado) {
+                    console.log(resultado) 
+           // res.status(200).send(resultado) 
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+
+
     }
 
 }

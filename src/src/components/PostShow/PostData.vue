@@ -49,14 +49,14 @@
 
 <script>
 export default{
-   props:['post','id'],
+   props:['post','id','likes2'],
   data(){
     return {
         editPermission:false,
         postEdited:{title:'',description:''},
         permissionToLeaveALike:false,
-        likes:'0',
         postOwner:'',
+        likes:0
     }
   },
   
@@ -65,7 +65,17 @@ export default{
       this.didYouLeaveTheLike()
   },
 
+  mounted(){
+
+    this.getLikes()
+
+  },
+
   methods:{
+      getLikes(){
+        console.log(this.likes2)
+        this.likes= this.likes2
+      },
 
       getEnsurePostOwner(){
         this.axios.get(`post/ensurePostOwner/${this.id}`)

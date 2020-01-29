@@ -7,7 +7,7 @@
   		<div class="row row justify-content-md-center">
   			<div class="col-md-8">
 
-          <PostData :post="post" :id="id"></PostData>
+          <PostData :post=post :id=id :likes2=likes2></PostData>
 
           <Comments :post="post" :id="id"></Comments>
          
@@ -36,11 +36,11 @@ export default {
      return {
       post:{},
       id:this.$route.params.id,
-
+      likes2:0
     }
   },
 
-  created(){
+  mounted(){
       this.getPost()
   },
 
@@ -49,6 +49,7 @@ export default {
         this.axios.get(`post/show/${this.id}`,{ credentials: true })
         .then((response) => {
           this.post= response.data[0];
+          this.likes2=this.post.like.length
         })
         .catch((e)=>{
           console.log('error' + e);

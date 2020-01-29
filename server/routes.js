@@ -44,6 +44,7 @@ router.delete('/post/destroy/:id',postController.destroy)//Listo
 //Ruta de los usuarios
 
 router.get('/user/show/:id',userController.show)
+router.get('/user/list/:name',userController.)
 
 
 //Ruta de los likes

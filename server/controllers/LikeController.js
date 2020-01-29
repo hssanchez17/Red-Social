@@ -30,7 +30,7 @@ module.exports={
 				userId:req.user.id,
 				postId:req.params.id
 			},
-			limit : 1,
+			//limit : 1,
 		})
         .then(function(){res.send(200,{message:'El like se ha eliminado exitosamente'})})
         .catch(err => res.status(400).json('Error: ' + err));

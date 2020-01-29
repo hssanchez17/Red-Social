@@ -110,7 +110,6 @@
       getCommentsFromUser(){
         this.axios.get(`/comment/from/user/${this.id}`)
         .then((response) => {
-          console.log(response.data)
           this.myComments=response.data
         })
         .catch((e)=>{

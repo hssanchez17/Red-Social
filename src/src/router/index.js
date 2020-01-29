@@ -46,6 +46,11 @@ const routes = [
     name:'showComment',
     component:()=>import('../views/Comment/ShowComment.vue')
   },
+  {
+    path:'/user/list/:name',
+    name:'listOfSearchedUsers',
+    component:()=>import('../views/User/ListOfSearchedUsers.vue')
+  }
 
 ]
 
