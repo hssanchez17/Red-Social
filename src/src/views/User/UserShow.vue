@@ -100,7 +100,7 @@ export default {
       this.axios.post(`friend/create/${this.id}`)
       .then((response) => {
         this.doIFollowYou=true
-        this.following++
+        this.followers++
       })
       .catch((e)=>{
         console.log('error' + e);
@@ -112,7 +112,7 @@ export default {
       this.axios.delete(`friend/destroy/${this.id}`)
       .then((response) => {
         this.doIFollowYou=false
-        this.following--
+        this.followers--
       })
       .catch((e)=>{
         console.log('error' + e);

@@ -4,8 +4,6 @@
 
     	<div class="card-header d-flex justify-content-between align-items-center">
          	<h3>Comments</h3>
-            <button class="btn btn-success" id="btn-toggle-comment" @click="showMyComments2()"> Show All Comments</button>
-            <button class="btn btn-success" id="btn-toggle-comment" @click="showAllComments()"> My comments</button>
         </div>
 
           
@@ -21,7 +19,7 @@
             </blockquote>
           
 
-            <ul class="list-group p-4" v-for="comment1 in comments" v-if="showMyComments">
+            <ul class="list-group p-4" v-for="comment1 in comments">
               <li class="list-group-item">
                 <div class="row">
                   <a :href="`/user/show/${comment1.userId}`" class="col text-center">
@@ -35,27 +33,6 @@
 
                     <footer class="blockquote-footer">{{comment1.user.email}}</footer>
                   </blockquote>
-                </div>
-              </li>
-            </ul>
-
-
-            <ul class="list-group p-4" v-for="comment2 in myComments" v-if="!showMyComments">
-              <li class="list-group-item">
-                <div class="row">
-                  <a :href="`/user/show/${comment2.userId}`" class="col text-center">
-                    <img :src="post.imageUrl" id="images" width="120px" height="120px"/>
-                  </a>
-
-                 
-                  <blockquote class="col" v-if="permisionToUpdate">
-                   <a :href="`/comment/show/${comment2.id}`" class="col text-center">
-                      <p class="lead">{{comment2.comment}}</p>
-                    </a>
-                    <footer class="blockquote-footer">{{comment2.user.email}}</footer>
-                  </blockquote>
-
-
                 </div>
               </li>
             </ul>
@@ -79,16 +56,12 @@
         showComment:false,
         comments:{},
         comment:{comment:'',user:{email:''}},
-        showMyComments:false,
-        myComments:{},
-        permisionToUpdate:true
       }
   	},
 
   	created(){
-      this.getComments(),
-      this.getCommentsFromUser()
-  	},
+      this.getComments()
+    },
 
   	methods:{
 
@@ -107,16 +80,6 @@
         })
       },
 
-      getCommentsFromUser(){
-        this.axios.get(`/comment/from/user/${this.id}`)
-        .then((response) => {
-          this.myComments=response.data
-        })
-        .catch((e)=>{
-          console.log('error' + e);
-        })
-
-      },
 
 
       addAComment(comment){
@@ -133,18 +96,8 @@
         })
       },
 
-      showMyComments2(){
-        this.showMyComments=true
-        console.log(this.showMyComments)
-      },
-
-
       showAllComments(){
         this.showMyComments=false
-      },
-
-      editComment(id){
-        console.log(id)
       }
   	}
 

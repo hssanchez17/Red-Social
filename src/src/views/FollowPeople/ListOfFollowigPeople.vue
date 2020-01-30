@@ -45,7 +45,7 @@
 
   methods:{
   	getFollowingPeople(){
-  		this.axios.get(`friend/getAll/${this.id}`)
+  		this.axios.get(`friend/get/all/following/${this.id}`)
         .then((response) => {
           this.listOfFollowingPeople=response.data
           console.log(this.listOfFollowingPeople)

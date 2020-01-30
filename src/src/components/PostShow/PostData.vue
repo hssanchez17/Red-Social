@@ -49,32 +49,35 @@
 
 <script>
 export default{
-   props:['post','id','likes2'],
+   props:['post','id'],
   data(){
     return {
         editPermission:false,
         postEdited:{title:'',description:''},
         permissionToLeaveALike:false,
         postOwner:'',
-        likes:0
+        likes:this.likes2
     }
   },
   
-  created(){
-      this.getEnsurePostOwner(),
-      this.didYouLeaveTheLike()
-  },
-
   mounted(){
-
-    this.getLikes()
-
+      this.getEnsurePostOwner(),
+      this.didYouLeaveTheLike(),
+      this.getLikes()
   },
+
 
   methods:{
+      //Esta funcion debe desaparecer, pero no entiendo porque no cargan los likes
       getLikes(){
-        console.log(this.likes2)
-        this.likes= this.likes2
+        this.axios.get(`like/get/from/post/${this.id}`)
+        .then((response) => {
+          this.likes=response.data.length
+        })
+        .catch((e)=>{
+            console.log('error' + e);
+            this.postOwner= false;
+        })
       },
 
       getEnsurePostOwner(){

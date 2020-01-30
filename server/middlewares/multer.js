@@ -7,7 +7,6 @@ module.exports = {
         cb(null,path.join(__dirname+'/uploads'));
 },
         filename(req, file, cb) {
-          //cb(null, `${new Date()}-${file.originalname}`);
           cb(null,new Date().getTime()+path.extname(file.originalname))//Encripta la info de la foto
         }
     })

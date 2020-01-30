@@ -37,7 +37,8 @@ module.exports={
         model.Post.update({    
             title:req.body.title,
             description:req.body.description
-        }, {where: {userId: req.user.id, id:req.params.id}})
+            }, 
+            {where: {userId: req.user.id, id:req.params.id}})
         .then(function(post){
             if(post==0) res.status(400).json('Error: usted no puede modificar este post' )
             else res.send(200,{message:'Se ha actualizado el proyecto correctamente'})

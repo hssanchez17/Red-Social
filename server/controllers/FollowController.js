@@ -2,7 +2,7 @@ const model=require('../models');
 module.exports={
 	create(req,res){
 
-		model.Fried.create({
+		model.Follow.create({
 			userId: req.user.id,
     		friendId: req.params.id
 		})
@@ -11,7 +11,7 @@ module.exports={
 	},
 
 	destroy(req,res){
-		model.Fried.destroy({
+		model.Follow.destroy({
 			where:{
 				userId: req.user.id,
     			friendId: req.params.id
@@ -22,7 +22,7 @@ module.exports={
 	},
 
 	doIFollowYou(req,res){
-		model.Fried.findAll({
+		model.Follow.findAll({
 			where:{
 				userId:req.user.id,
 				friendId:req.params.id
@@ -36,12 +36,26 @@ module.exports={
         .catch(err => res.status(400).json('Error: ' + err));
     },
 
-    getAllFriends(req,res){
-    	model.Fried.findAll({
+    getAllFollowing(req,res){
+
+    	model.Follow.findAll({
     		where:{
     			userId:req.params.id
     		},
     		include:['friend']
+    	})
+    	.then(function(friends){
+			res.send(friends)
+		})
+        .catch(err => res.status(400).json('Error: ' + err));
+    },
+    getAllFollowers(req,res){
+
+    	model.Follow.findAll({
+    		where:{
+    			friendId:req.params.id
+    		},
+    		include:['user']
     	})
     	.then(function(friends){
 			res.send(friends)

@@ -13,8 +13,9 @@
             <p>{{user.aboutMe}}</p>
             <p>{{user.email}}</p>
             <p> <strong>{{posts.length}}</strong> Posts</p>
-            
+            <a :href="`/friend/list/followers/people/${user.id}`">
             <p><strong>{{followers}}</strong> Followers</p>
+          </a>
             <a :href="`/friend/list/following/people/${user.id}`">
               <p><strong>{{following}}</strong> Following</p>
             </a>

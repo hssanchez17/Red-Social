@@ -52,6 +52,7 @@ router.get('/user/list/:name',userController.searchProfiles)
 router.post('/like/add/:id',likeController.create)
 router.get('/like/didYouLeaveTheLike/:id',likeController.didYouLeaveTheLike)
 router.delete('/like/destroy/:id',likeController.destroy)
+router.get('/like/get/from/post/:id',likeController.getFromPost)
 
 
 //Rutas de los comentarios
@@ -67,7 +68,9 @@ router.delete('/comment/destroy/:id',commentController.destroy)
 router.get('/friend/doIFollowYou/:id',friedController.doIFollowYou)
 router.post('/friend/create/:id',friedController.create)
 router.delete('/friend/destroy/:id',friedController.destroy)
-router.get('/friend/getAll/:id',friedController.getAllFriends)
+router.get('/friend/get/all/following/:id',friedController.getAllFollowing)
+router.get('/friend/get/all/followers/:id',friedController.getAllFollowers)
+
 
 
 module.exports = router;
