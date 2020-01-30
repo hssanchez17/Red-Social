@@ -5,7 +5,7 @@ module.exports={
     profile(req,res){
         model.User.findAll({
             where: {id: req.user.id},
-            include:['posts']
+            include:['posts','followers','following']
         })
         .then(function(user){res.send(user)})
         .catch(err => res.status(400).json('Error: ' + err));
@@ -26,24 +26,37 @@ module.exports={
     show(req,res){
         model.User.findAll({
             where: {id: req.params.id},
-            include:['posts']
+             include:['posts','followers','following']
+
         })
         .then(function(user){res.send(user)})
         .catch(err => res.status(400).json('Error: ' + err));
     },
 
     searchProfiles(req,res){
+        console.log(req.body)
         const Sequelize = require('sequelize');
         const Op = Sequelize.Op;
 
+        console.log(req.body)
 
-        model.User.findAll({})
+
+        model.User.findAll({
+            where: {
+                [Op.or]: [{          
+                    name: {
+                        [Op.iLike]: `%${req.params.name}%`
+                        }
+                    }]
+                }
+        })
         .then(function (resultado) {
-                    console.log(resultado) 
              res.status(200).send(resultado) 
         })
         .catch(err => res.status(400).json('Error: ' + err));
+    },
 
+    getUsers(req,res){
 
     }
 

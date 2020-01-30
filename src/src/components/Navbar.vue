@@ -7,7 +7,7 @@
             </b-navbar-brand>
 
       <b-navbar-brand>
-        <button class="btn btn-lg btn-success" type="submit" @click="searchUser()">Search</button>
+        <!--<button class="btn btn-lg btn-success" type="submit" @click="searchUser()">Search</button>-->
       </b-navbar-brand>
 
 
@@ -29,7 +29,7 @@
 export default {
   data(){
     return{
-      user:''
+//      user:''
 
     }
   },
@@ -42,11 +42,11 @@ export default {
         .catch( e => {
           console.log(e.response.data.error)
         })
-    },
+    }/*,
   searchUser(){
     console.log(this.user)
     this.$router.push({path: `/user/list/${this.user}`})
-  }
+  }*/
   }
 }
 </script>

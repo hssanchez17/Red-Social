@@ -12,6 +12,9 @@
             <h4 class="card-title mt-3">{{user.name}}</h4>
             <p>{{user.aboutMe}}</p>
             <p>{{user.email}}</p>
+            <p> <strong>{{posts.length}}</strong> Posts</p>
+            <p><strong>{{followers}}</strong> Followers</p>
+            <p><strong>{{following}}</strong> Following</p>
             <b-button class="btn-warning btn-sm mx-2" href="/user/update">Actualizar</b-button>
           </div>  
         </div> 
@@ -48,7 +51,9 @@ export default {
   data() {
     return {
       user:{},
-      posts:[]
+      posts:[],
+      following:0,
+      followers:0
     };
   },
 
@@ -62,6 +67,8 @@ export default {
       .then((response) => {
         this.user= response.data[0];
         this.posts=this.user.posts
+        this.following=this.user.following.length
+        this.followers=this.user.followers.length
       })
       .catch((e)=>{
         console.log('error' + e);

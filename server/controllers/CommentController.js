@@ -2,7 +2,6 @@ const model=require('../models');
 module.exports={
 
 	create(req,res){
-        console.log(req.body)
 		model.Comment.create({
 			userId: req.user.id,
     		postId: req.params.id,

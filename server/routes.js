@@ -16,7 +16,7 @@ const userController = require('./controllers/UserController');
 const postController = require('./controllers/PostController');
 const likeController = require('./controllers/LikeController');
 const commentController= require('./controllers/CommentController');
-
+const friedController=require('./controllers/FollowController')
 //Middlewares
 const { ensureAuthenticated, forwardAuthenticated } = require('./middlewares/auth');
 
@@ -61,6 +61,12 @@ router.get('/comment/from/user/:id',commentController.getCommentsFromUser)
 router.get('/comment/show2/:id',commentController.getCommentWithOwnerPermission)
 router.put('/comment/update/:id',commentController.update)
 router.delete('/comment/destroy/:id',commentController.destroy)
+
+
+//Ruta de los seguidores
+router.get('/friend/doIFollowYou/:id',friedController.doIFollowYou)
+router.post('/friend/create/:id',friedController.create)
+router.delete('/friend/destroy/:id',friedController.destroy)
 
 
 module.exports = router;

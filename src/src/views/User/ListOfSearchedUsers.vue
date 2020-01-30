@@ -71,7 +71,8 @@
   data(){
   	return {
   		listOfUsers:{},
-  		search:'herme',
+  		search:'hermes',
+  		user:{name:''}
   	}
   },
 
@@ -79,14 +80,14 @@
   	this.getListOfSearchedUsers()
   },
 
-  computed:{
+  /*computed:{
   	filteredUsers:function(){
   		return this.listOfUsers.filter((user)=>{
   			console.log(this.search)
   			return user.name.match(this.search);
   		})
   	}
-  },
+  },*/
 
 
   methods:{
@@ -94,13 +95,13 @@
         this.axios.get(`user/list/${this.name}`)
         .then((response) => {
           this.listOfUsers= response.data;
-          console.log(this.listOfUsers)
+          //console.log(this.listOfUsers)
         })
         .catch((e)=>{
           console.log('error' + e);
         })
       },
-  	},
+  	
 
   	filteredUsers(){
   		return this.listOfUsers.filter((user)=>{
@@ -109,8 +110,16 @@
   	},
 
   	searchUser(){
-  		console.log('hola')
+  		 this.axios.get(`user/list/${this.name}`,{name:this.search})
+        .then((response) => {
+          this.listOfUsers= response.data;
+          console.log(this.listOfUsers)
+        })
+        .catch((e)=>{
+          console.log('error' + e);
+        })
   	}
+  }
   }
 
 
