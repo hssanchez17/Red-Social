@@ -3,7 +3,7 @@
 	<b-navbar toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand href="/home">Red Social</b-navbar-brand>
       <b-navbar-brand> 
-              <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search for a user by name" v-model="user">
+<!-- Aqui va el componente de busqueda-->
             </b-navbar-brand>
 
       <b-navbar-brand>
@@ -45,6 +45,7 @@ export default {
     },
   searchUser(){
     console.log(this.user)
+    this.$router.push({path: `/user/list/${this.user}`})
   }
   }
 }

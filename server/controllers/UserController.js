@@ -36,22 +36,8 @@ module.exports={
         const Sequelize = require('sequelize');
         const Op = Sequelize.Op;
 
-        console.log(req.params.name)
 
-        model.User.findAll({
-            where: {
-                    [Op.or]: [
-                        {
-                          name: {
-                            [Op.iLike]: `%${req.params.name}%`
-                          }
-                        }
-                        
-                    ],
-                },
-
-
-        })
+        model.User.findAll({})
         .then(function (resultado) {
                     console.log(resultado) 
              res.status(200).send(resultado) 
