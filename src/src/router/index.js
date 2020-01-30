@@ -50,6 +50,11 @@ const routes = [
     path:'/user/list/:name',
     name:'listOfSearchedUsers',
     component:()=>import('../views/User/ListOfSearchedUsers.vue')
+  },
+  {
+    path:'/friend/list/following/people/:id',
+    name:'listOfFollowingPeople',
+    component:()=>import('../views/FollowPeople/ListOfFollowigPeople.vue')
   }
 
 ]

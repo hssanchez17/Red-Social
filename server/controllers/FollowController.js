@@ -34,5 +34,18 @@ module.exports={
 			else res.send(200,{doIFollowYou: true})
 		})
         .catch(err => res.status(400).json('Error: ' + err));
+    },
+
+    getAllFriends(req,res){
+    	model.Fried.findAll({
+    		where:{
+    			userId:req.params.id
+    		},
+    		include:['friend']
+    	})
+    	.then(function(friends){
+			res.send(friends)
+		})
+        .catch(err => res.status(400).json('Error: ' + err));
     }
 }

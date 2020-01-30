@@ -13,8 +13,11 @@
             <p>{{user.aboutMe}}</p>
             <p>{{user.email}}</p>
             <p> <strong>{{posts.length}}</strong> Posts</p>
+            
             <p><strong>{{followers}}</strong> Followers</p>
-            <p><strong>{{following}}</strong> Following</p>
+            <a :href="`/friend/list/following/people/${user.id}`">
+              <p><strong>{{following}}</strong> Following</p>
+            </a>
             <b-button class="btn-warning btn-sm mx-2" href="/user/update">Actualizar</b-button>
           </div>  
         </div> 
