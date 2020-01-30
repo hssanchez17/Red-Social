@@ -29,9 +29,18 @@
   methods:{
   	getListOfSearchedUsers(){
   		console.log(this.name)
+        this.axios.get(`user/list/${this.name}`)
+        .then((response) => {
+          //this.post= response.data[0];
+          console.log(response)
+        })
+        .catch((e)=>{
+          console.log('error' + e);
+        })
+      }
   	}
   }
-}
+
 
 
 </script>
