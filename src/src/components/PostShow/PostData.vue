@@ -56,7 +56,7 @@ export default{
         postEdited:{title:'',description:''},
         permissionToLeaveALike:false,
         postOwner:'',
-        likes:this.likes2
+        likes:0
     }
   },
   

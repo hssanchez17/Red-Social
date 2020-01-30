@@ -9,7 +9,17 @@
           
             <blockquote>
                 <div class="form-group">
-                	<textarea name="comment" class="form-control" rows="2" placeholder="Leave your Comment" v-model="comment.comment"></textarea>
+                	<textarea name="comment" 
+                  class="form-control" 
+                  rows="2" 
+                  placeholder="Leave your Comment" 
+                  v-model.trim="$v.comment.comment.$model"  
+                  :class="{'is-invalid':$v.comment.comment.$error,'is-valid':!$v.comment.comment.$invalid}">
+                   
+
+                  </textarea>
+
+                   <span class="invalid-feedback" v-if="$v.comment.comment">Este campo no puede ser vacio</span>
                 </div>
 
                 <div class="form-group">
@@ -47,6 +57,7 @@
 
 	</template>
 <script>
+  import {required} from 'vuelidate/lib/validators'
 		export default {
 
       props:['post','id'],
@@ -59,9 +70,22 @@
       }
   	},
 
+     validations:{
+      comment:{
+        comment: {
+            required
+          }
+      }
+     },
+
+
+
+
   	created(){
       this.getComments()
     },
+
+
 
   	methods:{
 

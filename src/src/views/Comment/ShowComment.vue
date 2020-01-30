@@ -21,7 +21,14 @@
                   </blockquote>
 
                   <div class="col" v-if="permissionToUpdate">
-                    <input type="text" placeholder="Descripcion de su comentario" v-model="commentEdited.comment"></input> 
+                    <input 
+                    type="text"
+                    placeholder="Descripcion de su comentario" 
+                    v-model.trim="$v.commentEdited.comment.$model" 
+                    :class="{'is-invalid':$v.commentEdited.comment.$error,'is-valid':!$v.commentEdited.comment.$invalid}"
+                    ></input> 
+
+                     <span class="invalid-feedback" v-if="$v.commentEdited.comment">Este campo no puede ser vacio</span>
                     
                   </div>
 
@@ -57,6 +64,7 @@
 
 
 <script>
+  import {required} from 'vuelidate/lib/validators'
   import Navbar from '@/components/Navbar.vue'
 
 export default {
@@ -76,6 +84,14 @@ export default {
     }
   },
 
+   validations:{
+      commentEdited:{
+        comment:{
+          required
+        }
+      }
+     },
+
   created(){
       this.getComment()
   },
@@ -84,11 +100,9 @@ export default {
       getComment(){
         this.axios.get(`comment/show2/${this.id}`,{ credentials: true })
         .then((response) => {
-          //console.log(response.data)
           this.comment= response.data.comment[0];
           this.email=this.comment.user.email
           this.commentOwner=response.data.commentOwner
-          console.log(this.commentOwner)
         })
         .catch((e)=>{
           console.log('error' + e);
@@ -113,7 +127,6 @@ export default {
           this.showComment=false
           this.permissionToUpdate=false
           this.comment.comment=this.commentEdited.comment
-          console.log()
         })
         .catch( e => {
           console.log(e.response.data.error)

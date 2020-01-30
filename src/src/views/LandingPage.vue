@@ -9,7 +9,6 @@
 
     <b-collapse id="nav-collapse" is-nav>
 
-      <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
 
         <b-nav-form @submit.prevent="login(userLogin)">
