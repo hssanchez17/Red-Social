@@ -109,7 +109,7 @@
     data() {
       return {
         userRegister:{
-           image: { backgroundImage: "url(../../public/fondo.jpg)" },
+          image: { backgroundImage: "url(../../public/fondo.jpg)" },
           name:'',
           email:'',
           password:'',

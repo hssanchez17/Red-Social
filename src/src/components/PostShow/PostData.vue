@@ -6,8 +6,21 @@
       <div class="card-header d-flex justify-content-between align-items-center">
               
         <h2 v-if="!editPermission">{{post.title}}</h2>
-              
-        <input type="text" placeholder="El nombre de su post" v-model="postEdited.title"  v-if="editPermission">
+
+        <div  class="align-items-center">
+          <input 
+          type="text" 
+          placeholder="El nombre de su post" 
+          v-model="$v.postEdited.title.$model"  
+          v-if="editPermission"
+          :class="{'is-invalid':$v.postEdited.title.$error,'is-valid':!$v.postEdited.title.$invalid}"
+          >
+
+          <span class="invalid-feedback" v-if="!$v.postEdited.title.required">Este campo no puede ser vacio</span>
+          <span  class="invalid-feedback"  v-if="!$v.postEdited.title.maxLength">El titulo no puedde pasar de 35 caracteres</span> 
+
+         </div>
+
 
         <div v-if="postOwner">
 
@@ -48,6 +61,7 @@
 
 
 <script>
+  import {required,maxLength} from 'vuelidate/lib/validators'
 export default{
    props:['post','id'],
   data(){
@@ -59,6 +73,16 @@ export default{
         likes:0
     }
   },
+
+  validations:{
+      postEdited:{
+        title: {
+            required,
+            maxLength:maxLength(35)
+          }
+      }
+     },
+
   
   mounted(){
       this.getEnsurePostOwner(),
@@ -114,6 +138,8 @@ export default{
       },
 
       updatePost(){
+         this.$v.$touch()
+        if (!this.$v.$invalid) {
         this.axios.put(`/post/edit/${this.id}`,this.postEdited)
         .then(res => {
           alert('Se actualizo la informacion de el post correctamente')
@@ -124,6 +150,7 @@ export default{
         .catch( e => {
           console.log(e.response.data.error)
         })
+      }
       },
 
       didYouLeaveTheLike(){

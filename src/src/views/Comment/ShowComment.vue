@@ -71,8 +71,9 @@ export default {
   components: {
     Navbar
   },
+
 	data() {
-     return {
+    return {
       comment:{},
       email:'',
       id:this.$route.params.id,
@@ -80,7 +81,6 @@ export default {
       commentEdited:{comment:''},
       permissionToUpdate:false,
       showComment:false
-
     }
   },
 
@@ -121,16 +121,20 @@ export default {
       },
 
       updateComment(){
-       this.axios.put(`comment/update/${this.id}`,this.commentEdited)
-        .then((response) => {
-          alert('Se actualizo la informacion de el comentario correctamente')
-          this.showComment=false
-          this.permissionToUpdate=false
-          this.comment.comment=this.commentEdited.comment
-        })
-        .catch( e => {
-          console.log(e.response.data.error)
-        })
+        this.$v.$touch()
+        console.log(this.$v.$invalid)
+        if (!this.$v.$invalid) {
+          this.axios.put(`comment/update/${this.id}`,this.commentEdited)
+          .then((response) => {
+            alert('Se actualizo la informacion de el comentario correctamente')
+            this.showComment=false
+            this.permissionToUpdate=false
+            this.comment.comment=this.commentEdited.comment
+          })
+          .catch( e => {
+            console.log(e.response.data.error)
+          })
+        }
       },
 
       destroyPost(){

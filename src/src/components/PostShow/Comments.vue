@@ -107,17 +107,20 @@
 
 
       addAComment(comment){
-        this.axios.post(`comment/add/${this.id}`,comment)
-        .then((response) => {
-          alert('Se agrego el comentario exitosamente')
-          comment.user.email=response.data.email
-          this.comments.push(comment)
-          this.comment.comment=''
-          this.getComments()
-        })
-        .catch( e => {
-          console.log(e.response.data.error)
-        })
+        this.$v.$touch()
+        if (!this.$v.$invalid) {
+          this.axios.post(`comment/add/${this.id}`,comment)
+          .then((response) => {
+            alert('Se agrego el comentario exitosamente')
+            comment.user.email=response.data.email
+            this.comments.push(comment)
+            this.comment.comment=''
+            this.getComments()
+          })
+          .catch( e => {
+            console.log(e.response.data.error)
+          })
+        }
       },
 
       showAllComments(){
