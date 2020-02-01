@@ -153,7 +153,7 @@ export default{
       }
       },
 
-      didYouLeaveTheLike(){
+      didYouLeaveTheLike(){//Cambiarle el nombre
         this.axios.get(`like/didYouLeaveTheLike/${this.id}`)
         .then((response)=>{
           if(response.data.leaveTheLike) this.permissionToLeaveALike= true;

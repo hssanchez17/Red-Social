@@ -13,6 +13,17 @@
           </div>
 
           <div class="card-body text-center">
+           
+            <div class="form-group">
+              <div class="input-group">
+                <div class="custom-file">
+
+                  <input type="file" @change="onFileSelected" class="custom-file-input">
+                  <label class="custom-file-label" for="inputGroupFile">Choose file</label>
+
+                </div>
+              </div>
+            </div>
 
           	<b-form>
 
@@ -85,11 +96,15 @@ export default {
         user:{
           name:'',
           aboutMe:'',
-          email:''
+          email:'',
+          profilePicture:''
         },
         originalEmail:'',
         submitEmail: false,
-        contador:0
+        contador:0,
+        selectedFile:null,
+        file:'',
+        image:''
         
       }
     },
@@ -116,11 +131,20 @@ export default {
   },
 
     methods:{
+
+       onFileSelected(event){
+        this.selectedFile=event.target.files[0]
+        this.user.image=this.selectedFile
+        //console.log(this.selectedFile)
+      },
     	
     	getProfile(){
     		this.axios.get('profile', { credentials: true })
       		.then((response) => {
-        		this.user= response.data[0];
+            this.user.name=response.data[0].name
+            this.user.aboutMe=response.data[0].aboutMe
+            this.user.email=response.data[0].email
+            this.user.profilePicture=response.data[0].profilePicture
         		this.originalEmail=response.data[0].email
       		})
       		.catch((e)=>{
@@ -129,14 +153,13 @@ export default {
     	},
 
       updateProfile(){
-        this.axios.put('profile/edit',this.user,{
-          onUploadProgress:uploadEvent=>{
-            console.log("Upload progress:"+ Math.round(uploadEvent.loaded/uploadEvent.total*100+'%'))
-          }
-        })
+        console.log(this.selectedFile)
+        //this.user.image=this.selectedFile
+
+        this.axios.put('profile/edit',this.user)
          .then(res => {
           alert('Se actualizo el usuario correctamente')
-          this.$router.push({ path: `/user/profile` })
+          //this.$router.push({ path: `/user/profile` })
         })
         .catch( e => {
           console.log(e.response.data.error)

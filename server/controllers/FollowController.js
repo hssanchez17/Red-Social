@@ -49,6 +49,7 @@ module.exports={
 		})
         .catch(err => res.status(400).json('Error: ' + err));
     },
+
     getAllFollowers(req,res){
 
     	model.Follow.findAll({

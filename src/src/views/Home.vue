@@ -46,12 +46,14 @@ export default {
 
   data() {
     return {
-      posts:[]
+      posts:[],
+      users:[]
     };
   },
 
   created(){
-    this.getAllPosts();
+    this.getAllPosts(),
+    this.getAllUsers();
   },
 
   methods:{
@@ -59,13 +61,30 @@ export default {
       this.axios.get('post/all')
       .then((response) => {
         this.posts=response.data
-        console.log(this.posts)
+        //console.log(this.posts)
+      })
+      .catch((e)=>{
+        console.log('error' + e);
+      })
+    },
+
+    getAllUsers(){
+      this.axios.get('user/all')
+      .then((response) => {
+        this.users=response.data.users
+        console.log(this.users)
+
+        for(var i = this.users.length - 1; i >= 0; i--) {
+          if(this.users[i].followers.userId.id != response.data.id) {
+        array.splice(i, 1);
+          }
+        }
       })
       .catch((e)=>{
         console.log('error' + e);
       })
     }
-  }
+  },
 };
 </script>
 

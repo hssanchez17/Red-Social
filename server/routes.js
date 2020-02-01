@@ -37,7 +37,7 @@ router.put('/profile/edit',ensureAuthenticated, userController.update);//listo
 router.post('/post/create',upload.single('image'), postController.store)//Listo
 router.get('/post/show/:id',postController.show)//Listo
 router.get('/post/ensurePostOwner/:id',postController.ensurePostOwner)
-router.put('/post/edit/:id',postController.update)//Listo
+router.put('/post/edit/:id',upload.single('image'),postController.update)//Listo
 router.get('/post/all',postController.getAllPosts)//Listo
 router.delete('/post/destroy/:id',postController.destroy)//Listo
 
@@ -45,6 +45,7 @@ router.delete('/post/destroy/:id',postController.destroy)//Listo
 
 router.get('/user/show/:id',userController.show)
 router.get('/user/list/:name',userController.searchProfiles)
+router.get('/user/all',userController.getAll)
 
 
 //Ruta de los likes

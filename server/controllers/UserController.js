@@ -1,4 +1,6 @@
 const model=require('../models');
+const cloudinary = require('../middlewares/cloudinary');
+
 
 module.exports={
 
@@ -12,6 +14,7 @@ module.exports={
     },
 
     update (req,res){
+        console.log(req.file)
         model.User.update({    
             name:req.body.name,
             //email:req.body.email,
@@ -51,7 +54,12 @@ module.exports={
         .catch(err => res.status(400).json('Error: ' + err));
     },
 
-    getUsers(req,res){
+    getAll(req,res){
+        model.User.findAll({
+            include:['followers','posts']
+        })
+        .then(function(users){ res.send({users,id:req.user.id})})
+        .catch(err => res.status(400).json('Error: ' + err));
 
     }
 

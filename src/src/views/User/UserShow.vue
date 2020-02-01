@@ -59,7 +59,7 @@ export default {
       user:{},
       posts:{},
       id:this.$route.params.id,
-      doIFollowYou:false,
+      doIFollowYou:false,//Cambiarle el nombre
       following:0,
       followers:0
     };
@@ -67,7 +67,7 @@ export default {
 
   created(){
     this.getUser(),
-    this.getDoIFollowYou()
+    this.doIFollowYou()
   },
 
   methods:{
@@ -86,7 +86,7 @@ export default {
       })
     },
 
-    getDoIFollowYou(){
+    doIFollowYou(){ //Cambiarle el nombre
       this.axios.get(`friend/doIFollowYou/${this.id}`)
       .then((response) => {
         if(response.data.doIFollowYou) this.doIFollowYou=true

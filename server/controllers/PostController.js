@@ -5,6 +5,7 @@ module.exports={
 
     
     store(req,res) {
+        console.log(req.file)
         cloudinary.uploadImage(req.file)
         .then(function(result){
             model.Post.create({
@@ -65,6 +66,6 @@ module.exports={
             else res.send(200,{postOwner:false})
         })
         .catch(err => res.status(400).json('Error: ' + err));
-    },
+    }
 
 }

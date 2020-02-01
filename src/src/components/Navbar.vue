@@ -42,11 +42,7 @@ export default {
         .catch( e => {
           console.log(e.response.data.error)
         })
-    }/*,
-  searchUser(){
-    console.log(this.user)
-    this.$router.push({path: `/user/list/${this.user}`})
-  }*/
+    }
   }
 }
 </script>

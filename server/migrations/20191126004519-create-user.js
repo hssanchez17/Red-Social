@@ -20,6 +20,9 @@ module.exports = {
       aboutMe: {
         type: Sequelize.TEXT
       },
+      profilePicture: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -7,7 +7,10 @@
       <div class="col-md-3">
         
         <div class="card">
-           <img src="https://scontent-mia3-2.xx.fbcdn.net/v/t31.0-8/s960x960/15800243_1378924182125785_3186974028727972417_o.jpg?_nc_cat=105&_nc_ohc=nDhh6znLXUkAX8S7OK3&_nc_ht=scontent-mia3-2.xx&_nc_tp=1002&oh=bc7952c964fb005af9f9b28c42b295b8&oe=5EDB22D5" class=" img-responsive" id="image"> 
+           <img :src="user.profilePicture" id="image"> 
+
+
+
           <div class="card-body">
             <h4 class="card-title mt-3">{{user.name}}</h4>
             <p>{{user.aboutMe}}</p>
