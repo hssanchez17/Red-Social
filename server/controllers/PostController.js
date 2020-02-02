@@ -5,7 +5,6 @@ module.exports={
 
     
     store(req,res) {
-        console.log(req.file)
         cloudinary.uploadImage(req.file)
         .then(function(result){
             model.Post.create({

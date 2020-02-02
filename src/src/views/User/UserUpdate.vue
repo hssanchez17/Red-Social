@@ -153,13 +153,15 @@ export default {
     	},
 
       updateProfile(){
-        console.log(this.selectedFile)
-        //this.user.image=this.selectedFile
+        const fd=new FormData();
+        fd.append('image',this.selectedFile)
+        fd.append('name',this.user.name)
+        fd.append('aboutMe',this.user.aboutMe)
 
-        this.axios.put('profile/edit',this.user)
+        this.axios.put('profile/edit',fd)
          .then(res => {
           alert('Se actualizo el usuario correctamente')
-          //this.$router.push({ path: `/user/profile` })
+          this.$router.push({ path: `/user/profile` })
         })
         .catch( e => {
           console.log(e.response.data.error)

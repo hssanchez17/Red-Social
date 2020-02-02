@@ -30,7 +30,7 @@ router.post('/check/auth',checkAuthentication);//Listo
 
 //Rutas del perfil
 router.get('/profile',userController.profile);//listo
-router.put('/profile/edit',ensureAuthenticated, userController.update);//listo
+router.put('/profile/edit',ensureAuthenticated,upload.single('image'), userController.update);//listo
 
 
 //Rutas del post
