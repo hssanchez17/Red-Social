@@ -98,31 +98,7 @@ export default {
         }    
 
 
-      },
-
-
-      /*selectFile(){
-        this.file=this.$refs.file.files[0]
-        console.log(this.file)
-        console.log(this.Title)
-      },
-
-      sendFile(){
-
-        let post={
-          image:this.file,
-          description:this.description
-        }
-
-         this.axios.post('post/create', post)
-         .then(res => {
-            this.$router.push({ path: `/profile` })
-          })
-          .catch( e => {
-            console.log(e)  
-
-          })
-        }    */
+      }
 
       }
     

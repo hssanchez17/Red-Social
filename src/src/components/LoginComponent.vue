@@ -51,6 +51,7 @@
           			this.$router.push({ path: `/home` })
         		})
         		.catch( e => {
+                alert('Password and email do not match')
           			console.log(e.response.data.error)
         		})
       		},

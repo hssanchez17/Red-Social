@@ -1,36 +1,37 @@
 <template>
 <div class="app">
+
   <Navbar></Navbar>
 
   <div class="container" id="profile-info">
+
     <div class="row">
+
+      <!--User Information-->
       <div class="col-md-3">
-        
         <div class="card">
-           <img :src="user.profilePicture" id="image"> 
-
-
-
-          <div class="card-body">
-            <h4 class="card-title mt-3">{{user.name}}</h4>
-            <p>{{user.aboutMe}}</p>
-            <p>{{user.email}}</p>
-            <p> <strong>{{posts.length}}</strong> Posts</p>
-            <a :href="`/friend/list/followers/people/${user.id}`">
-            <p><strong>{{followers}}</strong> Followers</p>
-          </a>
-            <a :href="`/friend/list/following/people/${user.id}`">
-              <p><strong>{{following}}</strong> Following</p>
-            </a>
-            <b-button class="btn-warning btn-sm mx-2" href="/user/update">Actualizar</b-button>
-          </div>  
-        </div> 
+            <img :src="user.profilePicture" id="image"> 
+            <div class="card-body">
+              <h4 class="card-title mt-3">{{user.name}}</h4>
+              <p>{{user.aboutMe}}</p>
+              <p>{{user.email}}</p>
+              <p> <strong>{{posts.length}}</strong> Posts</p>
+              <a :href="`/friend/list/followers/people/${user.id}`">
+                <p><strong>{{followers}}</strong> Followers</p>
+              </a>
+              <a :href="`/friend/list/following/people/${user.id}`">
+                <p><strong>{{following}}</strong> Following</p>
+              </a>
+              <b-button class="btn-warning btn-sm mx-2" href="/user/update">Actualizar</b-button>
+            </div>  
+          </div> 
       </div>
 
+      <!--Post List-->
       <div class="col-md-9">
         <div class="card">
           <div class="card-header bg-secondary text-white">
-            <h3><i class="far fa-images"></i>Publicaciones</h3>
+            <h3></i>Publicaciones</h3>
           </div>  
 
           <div class="card-body">
@@ -42,19 +43,22 @@
               </div>
             </div>
           </div>
+
+
+
         </div>
       </div>
-    </div>
+    </div>  
   </div>
 </div>
 </template>
 
 <script>
-   import Navbar from '@/components/Navbar.vue'
+
+import Navbar from '@/components/Navbar.vue'
 export default {
-  components: {
-    Navbar
-  },
+  components: {Navbar},
+
   data() {
     return {
       user:{},
