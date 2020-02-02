@@ -7,10 +7,9 @@
 
     <div class="row">
 
-      <!--User Information-->
-      <div class="col-md-3">
+      <div class="col-md-3" id="UserInformation">
         <div class="card">
-            <img :src="user.profilePicture" id="image"> 
+            <img :src="user.profilePicture" id="profilePicture"> 
             <div class="card-body">
               <h4 class="card-title mt-3">{{user.name}}</h4>
               <p>{{user.aboutMe}}</p>
@@ -27,27 +26,12 @@
           </div> 
       </div>
 
-      <!--Post List-->
-      <div class="col-md-9">
-        <div class="card">
-          <div class="card-header bg-secondary text-white">
-            <h3></i>Publicaciones</h3>
-          </div>  
-
-          <div class="card-body">
-            <div class="row row justify-content-md-center">
-              <div class="col-md-10 text-center" v-for="post in posts">
-                  <a :href="'/post/show/'+ post.id">
-                    <img :src="post.imageUrl" id="images" class="img-thumbnail"/>
-                  </a>
-              </div>
-            </div>
-          </div>
-
-
-
-        </div>
+    
+      <div class="col-md-9" id="PostList">
+        <PostList :posts="posts"></PostList>
       </div>
+
+
     </div>  
   </div>
 </div>
@@ -56,8 +40,9 @@
 <script>
 
 import Navbar from '@/components/Navbar.vue'
+import PostList from '@/components/PostListComponent.vue'
 export default {
-  components: {Navbar},
+  components: {Navbar,PostList},
 
   data() {
     return {
@@ -95,15 +80,7 @@ export default {
   margin-top: 1.5%
 }
 
-#images{
-  width: 100%; 
-  height: 100%;
-  background-color: black;
 
-}
 
-#image{
-    height: 250px;
-  }
 
 </style>

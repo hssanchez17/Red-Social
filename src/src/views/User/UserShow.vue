@@ -6,10 +6,9 @@
   <div class="container" id="profile-info">
     <div class="row">
 
-      <!--User information-->
-      <div class="col-md-3">
+      <div class="col-md-3" id="userInformation">
         <div class="card">
-          <div class="card-body text-center">
+          
             <img :src="user.profilePicture" id="profilePicture"> 
             <div class="card-body">
               <h4 class="card-title mt-3">{{user.name}}</h4>
@@ -29,26 +28,13 @@
               </div>
             
             </div>
-          </div>  
+         
         </div>
       </div>
 
-      <!--Post List-->
-      <div class="col-md-9">
+      <div class="col-md-9" id="PostList">
         <div class="card">
-          <div class="card-header bg-secondary text-white">
-            <h3></i>Publicaciones</h3>
-          </div>  
-
-          <div class="card-body">
-            <div class="row row justify-content-md-center">
-              <div class="col-md-10 text-center" v-for="post in posts">
-                  <a :href="'/post/show/'+ post.id">
-                    <img :src="post.imageUrl" id="images" class="img-thumbnail"/>
-                  </a>
-              </div>
-            </div>
-          </div>
+           <PostList :posts="posts"></PostList>
         </div>
       </div>
 
@@ -59,10 +45,9 @@
 
 <script>
    import Navbar from '@/components/Navbar.vue'
+   import PostList from '@/components/PostListComponent.vue'
 export default {
-  components: {
-    Navbar
-  },
+  components: {Navbar,PostList},
   data() {
     return {
       user:{},
@@ -138,11 +123,6 @@ export default {
   margin-top: 1.5%
 }
 
-#profilePicture{
-    width: 100%; 
-  height: 100%;
-  background-color: black;
-}
 
 
 

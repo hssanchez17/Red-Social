@@ -4,28 +4,14 @@
     <Navbar></Navbar>
 		
 
- <div class="container" id="profile-info">
+  <div class="container" id="profile-info">
       <div class="row row justify-content-md-center">
 		    <div class="col-md-8">
 		      <div class="card">
-            <div class="card-header bg-secondary text-white">
-              <h3><i class="far fa-images"></i>Publicaciones</h3>
-            </div>
-
-            <div class="card-body text-center">
-               <div class="row row justify-content-md-center">
-                <div class="col-md-10 text-center" v-for="post in posts">
-                    <a :href="'/post/show/'+ post.id">
-                      <img :src="post.imageUrl" id="images" class="img-thumbnail" />
-                    </a>
-
-              </div>
-
-            </div>
+            <PostList :posts="posts"></PostList>
           </div>
+        </div>
       </div>
-    </div>
-  </div>
   </div>
 
 
@@ -39,8 +25,9 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import PostList from '@/components/PostListComponent.vue'
 export default {
-  components: {Navbar},
+  components: {Navbar,PostList},
 
   data() {
     return {

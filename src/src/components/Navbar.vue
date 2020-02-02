@@ -2,10 +2,7 @@
 	<div class="hello">
 	<b-navbar toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand href="/home">Red Social</b-navbar-brand>
-
-
-
-
+      
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
             <b-navbar-brand href="/user/list">Search a profile</b-navbar-brand>

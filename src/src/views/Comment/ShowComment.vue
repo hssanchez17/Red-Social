@@ -1,64 +1,72 @@
 <template>
 	<div class="app">
 
-		<Navbar></Navbar>
+    <Navbar></Navbar>
 
-  	<div class="container">
-  		<div class="row row justify-content-md-center">
-  			<div class="col-md-8">
-  				  <ul class="list-group p-4">
-              <li class="list-group-item">
-                <div class="row">
+     <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col-md-8">
+          <div class="card">
 
-                	<a :href="`/user/show/${comment.userId}`" class="col text-center">
-                    <img src="https://scontent-mia3-2.xx.fbcdn.net/v/t31.0-8/s960x960/15800243_1378924182125785_3186974028727972417_o.jpg?_nc_cat=105&_nc_ohc=nDhh6znLXUkAX8S7OK3&_nc_ht=scontent-mia3-2.xx&_nc_tp=1002&oh=bc7952c964fb005af9f9b28c42b295b8&oe=5EDB22D5" id="images" width="120px" height="120px"/>
-                  </a>
-                 
-                  <blockquote class="col" v-if="!showComment">
-                    <p class="lead">{{comment.comment}}</p>  
-                    
-                    <footer class="blockquote-footer">{{email}}</footer>
-                  </blockquote>
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h3>Comentario</h3>
 
-                  <div class="col" v-if="permissionToUpdate">
-                    <input 
-                    type="text"
-                    placeholder="Descripcion de su comentario" 
-                    v-model.trim="$v.commentEdited.comment.$model" 
-                    :class="{'is-invalid':$v.commentEdited.comment.$error,'is-valid':!$v.commentEdited.comment.$invalid}"
-                    ></input> 
-
-                     <span class="invalid-feedback" v-if="$v.commentEdited.comment">Este campo no puede ser vacio</span>
-                    
+              <div  id="Buttons">
+                <div v-if="commentOwner">
+                  <div v-if="showComment">
+                    <button class="btn btn-info" id="btn-toggle-comment" @click="updateComment()">  Cambiar</button>
+                    <button class="btn btn-danger" id="btn-toggle-comment" @click="ocultarUpdateComment()">  Cancelar</button>
                   </div>
 
+                  <div v-if="!showComment">
+                    <button class="btn btn-info" id="btn-toggle-comment" @click="mostrarUpdatedCommet()">  Update</button>
+                    <button class="btn btn-danger" id="btn-toggle-comment" @click="destroyPost()">  Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                  <div v-if="commentOwner">
+            <div class="card-body">
+               <div class="row row-cols-2">
 
-                    <div v-if="showComment">
-                       <button class="btn btn-info" id="btn-toggle-comment" @click="updateComment()">  Cambiar</button>
-                        <button class="btn btn-danger" id="btn-toggle-comment" @click="ocultarUpdateComment()">  Cancelar</button>
+                  <div class="col" id="ProfilePicture">
+                    <a :href="`/user/show/${comment.userId}`">
+                      <img :src="profilePicture" width="90%" height="150px"/>
+                    </a>
+                  </div>
+
+                  <div class="col" id="CommentData">
+
+                    <blockquote v-if="!showComment">
+                      <p class="lead">{{comment.comment}}</p>  
+                      <footer class="blockquote-footer">{{email}}</footer>
+                    </blockquote>
+
+
+                    <div v-if="permissionToUpdate">
+                      <textarea
+                        class="form-control"
+                        placeholder="Descripcion de su comentario" 
+                        v-model.trim="$v.commentEdited.comment.$model" 
+                        :class="{'is-invalid':$v.commentEdited.comment.$error,'is-valid':!$v.commentEdited.comment.$invalid}"
+                      ></textarea> 
+
+                       <span class="invalid-feedback" v-if="$v.commentEdited.comment">Este campo no puede ser vacio</span> 
                     </div>
 
-                      <div v-if="!showComment">
-                   <button class="btn btn-info" id="btn-toggle-comment" @click="mostrarUpdatedCommet()">  Update</button>
-                   <button class="btn btn-danger" id="btn-toggle-comment" @click="destroyPost()">  Delete</button>
+                    <a :href="`/post/show/${comment.postId}`">Voler Al Post </a>
                   </div>
-                    
-
-                  </div>
-
-
-
-
                 </div>
-              </li>
-            </ul>
+            </div>
 
-        </div>
-	     </div>
-	   </div>
+          </div>
+          
+      </div>
+
     </div>
+
+    </div>
+  </div>
 
 </template>
 
@@ -80,7 +88,8 @@ export default {
       commentOwner:'',
       commentEdited:{comment:''},
       permissionToUpdate:false,
-      showComment:false
+      showComment:false,
+      profilePicture:''
     }
   },
 
@@ -103,6 +112,7 @@ export default {
           this.comment= response.data.comment[0];
           this.email=this.comment.user.email
           this.commentOwner=response.data.commentOwner
+          this.profilePicture= this.comment.user.profilePicture
         })
         .catch((e)=>{
           console.log('error' + e);
@@ -145,8 +155,6 @@ export default {
         .catch( e => {
           console.log(e.response.data.error)
         })
-
-
       }
     }
   }

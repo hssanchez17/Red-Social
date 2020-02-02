@@ -8,39 +8,46 @@
     <div class="row row justify-content-md-center">
       <div class="col-md-8">
         <div class="card">
+
           <div class="card-header bg-secondary">
               <h3 class="card-title text-white">Upload an Image</h3>
           </div>
 
           <div class="card-body text-center">
 
-            <div class="form-group">
+            <div class="form-group" id="ImageInput">
               <div class="input-group">
-                <div class="custom-file">
+                  <input 
+                  type="file"
+                  @change="onFileSelected" 
+                  class="custom-file-input"
+                  :class="{'is-invalid':$v.selectedFile.$error,'is-valid':!$v.selectedFile.$invalid}"
+                  >
 
-                  <input type="file"@change="onFileSelected" class="custom-file-input">
-                  <label class="custom-file-label" for="inputGroupFile">Choose file</label>
 
-                </div>
+                  <label class="custom-file-label" for="inputGroupFile" >Choose file</label>
+                  <span class="invalid-feedback" v-if="!$v.selectedFile.required">Este campo no puede ser vacio</span>
               </div>
             </div>
 
-            <div class="form-group">
-              <input type="text" name="title" class="form-control" placeholder="Title for the Image" required v-model.trim="title">
+            <div class="form-group" id="TitleInput">
+              <input 
+              class="form-control"
+              type="text" 
+              placeholder="Title for the image" 
+              v-model="$v.title.$model"  
+              :class="{'is-invalid':$v.title.$error,'is-valid':!$v.title.$invalid}">
+
+              <span class="invalid-feedback" v-if="!$v.title.required">Este campo no puede ser vacio</span>
+              <span  class="invalid-feedback"  v-if="!$v.title.maxLength">El titulo no puedde pasar de 35 caracteres</span> 
             </div>
 
 
-            <div class="form-group">
-              <textarea name="description" rows="2" class="form-control" placeholder="Deescription for the Image" v-model.trim="description" required></textarea>
+            <div class="form-group" id="DescriptionInput">
+              <textarea name="description" class="form-control" placeholder="Post description" v-model.trim="description" required></textarea>
             </div>
 
-             <div class="progress">
-  <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-
-
-
-            <button class="btn btn-success" @click="onUpload()">Upload Image</button>
+            <button class="btn btn-success" @click="onUpload()">Upload Post</button>
   
 
           
@@ -55,7 +62,7 @@
 
 
 <script>
-
+import { required, maxLength} from 'vuelidate/lib/validators'
 import axios from 'axios'
 import Navbar from '@/components/Navbar.vue'
 
@@ -65,42 +72,53 @@ export default {
   },
    data() {
       return {
-        file:"",
         title:"",
         description:"",
         selectedFile:null
       }
     },
+
+    validations:{
+      title: {
+        required,
+        maxLength:maxLength(35)
+      },
+      selectedFile:{
+        required
+      }
+
+
+    },
+
+
+
     methods:{
        onFileSelected(event){
         this.selectedFile=event.target.files[0]
       },
 
       onUpload(){
-        const fd=new FormData();
-        fd.append('image',this.selectedFile)
-        fd.append('description',this.description)
-        fd.append('title',this.title)
+        this.$v.$touch()
+        if (!this.$v.$invalid) {
+          const fd=new FormData();
+          fd.append('image',this.selectedFile)
+          fd.append('description',this.description)
+          fd.append('title',this.title)
 
-         this.axios.post('post/create', fd,{
-          onUploadProgress: uploadEvent => {
-            console.log("Upload progress:"+ Math.round(uploadEvent.loaded/uploadEvent.total*100)+'%')
-          }
-          })
-         .then(res => {
+          this.axios.post('post/create', fd)
+          .then(res => {
             alert('se creo el post correctamente')
             this.$router.push({ path: `/home` })
           })
           .catch( e => {
             console.log(e)  
-
           })
         }    
-
-
       }
 
-      }
+    }
+
+}
     
 
 </script>
