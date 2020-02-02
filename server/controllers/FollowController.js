@@ -1,7 +1,6 @@
 const model=require('../models');
 module.exports={
 	create(req,res){
-
 		model.Follow.create({
 			userId: req.user.id,
     		friendId: req.params.id
