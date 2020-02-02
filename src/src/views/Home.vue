@@ -72,13 +72,22 @@ export default {
       this.axios.get('user/all')
       .then((response) => {
         this.users=response.data.users
-        console.log(this.users)
+        //console.log(this.users[0].following[0].userId)
+        //console.log(this.users[0].following[0].userId)
+        //console.log(this.users)
+        var k=0
 
         for(var i = this.users.length - 1; i >= 0; i--) {
-          if(this.users[i].followers.userId.id != response.data.id) {
-        array.splice(i, 1);
+          for(var j = this.users[i].following.length - 1; j >= 0; i--) {
+            console.log( this.users[i].following[j])
+            if(this.users[i].following[j].userId==response.data.id){ 
+              this.posts[k]=this.users[i].posts
+              k++
+            }
           }
         }
+
+        console.log(this.posts)
       })
       .catch((e)=>{
         console.log('error' + e);
