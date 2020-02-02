@@ -36,23 +36,6 @@ module.exports={
     },
 
     searchProfiles(req,res){
-       /* const Sequelize = require('sequelize');
-        const Op = Sequelize.Op;
-        
-        model.User.findAll({
-            where: {
-                [Op.or]: [{          
-                    name: {
-                        [Op.iLike]: `%${req.params.name}%`
-                        }
-                    }]
-                }
-        })
-        .then(function (resultado) {
-             res.status(200).send(resultado) 
-        })
-        .catch(err => res.status(400).json('Error: ' + err));*/
-
         model.User.findAll({})
         .then(function(users){ res.send(users)})
         .catch(err => res.status(400).json('Error: ' + err));
