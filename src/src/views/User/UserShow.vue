@@ -22,7 +22,7 @@
                 <p><strong>{{following}}</strong> Following</p>
               </a>
 
-              <div id="followButtons">
+              <div id="followButtons">  
                  <button v-if="!doIFollowYou"class="btn btn-success" @click="createAFollow()">Follow</button>
                 <button v-if="doIFollowYou"class="btn btn-danger" @click="destroyAFollow()">Unfollow</button>
               </div>

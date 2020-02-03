@@ -18,7 +18,14 @@
 
 <script>
 	export default{
-		props:['posts']
+		props:['posts'],
+    data(){
+      return{
+        following:0,
+        followers:0
+      }
+    }
+
 	}
 </script>
 

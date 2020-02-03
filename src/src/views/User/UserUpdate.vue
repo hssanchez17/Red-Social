@@ -60,9 +60,6 @@
 
 		        </b-form-group>
 
-                <div class="progress">
-  <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
 
           	</b-form>
 

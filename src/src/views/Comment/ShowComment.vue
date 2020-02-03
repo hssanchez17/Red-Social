@@ -26,7 +26,7 @@
               </div>
             </div>
 
-            <div class="card-body">
+            <div class="card-body" id="CommentInformation">
                <div class="row row-cols-2">
 
                   <div class="col" id="ProfilePicture">
