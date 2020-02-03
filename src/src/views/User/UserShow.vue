@@ -11,16 +11,8 @@
           
             <img :src="user.profilePicture" id="profilePicture"> 
             <div class="card-body">
-              <h4 class="card-title mt-3">{{user.name}}</h4>
-              <p>{{user.aboutMe}}</p>
-              <p>{{user.email}}</p>
-              <p> <strong>{{posts.length}}</strong> Posts</p>
-              <a :href="`/friend/list/followers/people/${user.id}`">
-                <p><strong>{{followers}}</strong> Followers</p>
-              </a>
-              <a :href="`/friend/list/following/people/${user.id}`">
-                <p><strong>{{following}}</strong> Following</p>
-              </a>
+              <!--User information Component-->
+               <UserInformation :user="user" ></UserInformation>
 
               <div id="followButtons">  
                  <button v-if="!doIFollowYou"class="btn btn-success" @click="createAFollow()">Follow</button>
@@ -34,7 +26,7 @@
 
       <div class="col-md-9" id="PostList">
         <div class="card">
-           <PostList :posts="posts"></PostList>
+           <PostList :posts="user.posts"></PostList>
         </div>
       </div>
 
@@ -46,16 +38,20 @@
 <script>
    import Navbar from '@/components/Navbar.vue'
    import PostList from '@/components/PostListComponent.vue'
+   import UserInformation from '@/components/UserInformationComponent.vue'
+
 export default {
-  components: {Navbar,PostList},
+  components: {Navbar,PostList,UserInformation},
   data() {
     return {
-      user:{},
-      posts:{},
+      user:{
+        followers:{},
+        following:{},
+        posts:{}
+      },
       id:this.$route.params.id,
       doIFollowYou:false,//Cambiarle el nombre
-      following:0,
-      followers:0
+
     };
   },
 
@@ -70,9 +66,6 @@ export default {
       this.axios.get(`user/show/${this.id}`)
       .then((response) => {
         this.user= response.data[0];
-        this.posts=this.user.posts
-        this.following=this.user.following.length
-        this.followers=this.user.followers.length
       })
       .catch((e)=>{
         console.log('error' + e);

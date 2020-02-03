@@ -49,7 +49,6 @@
   		this.axios.get(`friend/get/all/following/${this.id}`)
         .then((response) => {
           this.listOfFollowingPeople=response.data
-          console.log(this.listOfFollowingPeople)
         })
         .catch((e)=>{
           console.log('error' + e);
