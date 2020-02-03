@@ -1,7 +1,7 @@
 <template>
 	<b-form @submit.prevent="register()">
 
-    	<b-form-group id="NameInput">
+    	  <b-form-group id="NameInput">
           <b-form-input placeholder="Ingrese su nombre"  id="name"  v-model.trim="$v.userRegister.name.$model" :class="{'is-invalid':$v.userRegister.name.$error,'is-valid':!$v.userRegister.name.$invalid}">
           </b-form-input>
           <span  class="valid-feedback" >Su nombre es valido</span>

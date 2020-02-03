@@ -132,11 +132,10 @@ export default {
        onFileSelected(event){
         this.selectedFile=event.target.files[0]
         this.user.image=this.selectedFile
-        //console.log(this.selectedFile)
       },
     	
     	getProfile(){
-    		this.axios.get('profile', { credentials: true })
+    		this.axios.get('profile')
       		.then((response) => {
             this.user.name=response.data[0].name
             this.user.aboutMe=response.data[0].aboutMe

@@ -11,7 +11,7 @@
           
             <img :src="user.profilePicture" id="profilePicture"> 
             <div class="card-body">
-              <!--User information Component-->
+
                <UserInformation :user="user" ></UserInformation>
 
               <div id="followButtons">  
@@ -50,14 +50,14 @@ export default {
         posts:{}
       },
       id:this.$route.params.id,
-      doIFollowYou:false,//Cambiarle el nombre
+      doIFollowYou:false,
 
     };
   },
 
   created(){
     this.getUser(),
-    this.doIFollowYou2()
+    this.getDoIFollowYou()
   },
 
   methods:{
@@ -72,7 +72,7 @@ export default {
       })
     },
 
-    doIFollowYou2(){ //Cambiarle el nombre
+    getDoIFollowYou(){
       this.axios.get(`friend/doIFollowYou/${this.id}`)
       .then((response) => {
         if(response.data.doIFollowYou) this.doIFollowYou=true

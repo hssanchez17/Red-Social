@@ -51,7 +51,7 @@
       <div class="card-footer d-flex justify-content-between align-items-center">
               <button class="btn btn-success" v-if="!permissionToLeaveALike"@click="like()">Like</button>
               <button class="btn btn-danger" v-if="permissionToLeaveALike"@click="dislike()">Dislike</button>
-              <span>{{likes}}</span>
+              <span>{{post.like.length}}</span>
       </div>
 
     </div>
@@ -70,7 +70,6 @@ export default{
         postEdited:{title:'',description:''},
         permissionToLeaveALike:false,
         postOwner:'',
-        likes:0
     }
   },
 
@@ -86,24 +85,11 @@ export default{
   
   mounted(){
       this.getEnsurePostOwner(),
-      this.didYouLeaveTheLike(),
-      this.getLikes()
+      this.didYouLeaveTheLike()
   },
 
 
   methods:{
-      //Esta funcion debe desaparecer, pero no entiendo porque no cargan los likes
-      getLikes(){
-        this.axios.get(`like/get/from/post/${this.id}`)
-        .then((response) => {
-          this.likes=response.data.length
-        })
-        .catch((e)=>{
-            console.log('error' + e);
-            this.postOwner= false;
-        })
-      },
-
       getEnsurePostOwner(){
         this.axios.get(`post/ensurePostOwner/${this.id}`)
         .then((response) => {
@@ -138,19 +124,19 @@ export default{
       },
 
       updatePost(){
-         this.$v.$touch()
+        this.$v.$touch()
         if (!this.$v.$invalid) {
-        this.axios.put(`/post/edit/${this.id}`,this.postEdited)
-        .then(res => {
-          alert('Se actualizo la informacion de el post correctamente')
-          this.editPermission=false
-          this.post.title=this.postEdited.title
-          this.post.description=this.postEdited.description
-        })
-        .catch( e => {
-          console.log(e.response.data.error)
-        })
-      }
+          this.axios.put(`/post/edit/${this.id}`,this.postEdited)
+          .then(res => {
+            alert('Se actualizo la informacion de el post correctamente')
+            this.editPermission=false
+            this.post.title=this.postEdited.title
+            this.post.description=this.postEdited.description
+          })
+          .catch( e => {
+            console.log(e.response.data.error)
+          })
+        }
       },
 
       didYouLeaveTheLike(){//Cambiarle el nombre
@@ -168,7 +154,7 @@ export default{
         this.axios.post(`/like/add/${this.id}`)
         .then(res => {
           this.permissionToLeaveALike=true
-          this.likes++
+          this.post.like.length++
         })
         .catch( e => {
           console.log(e.response.data.error)
@@ -179,7 +165,7 @@ export default{
         this.axios.delete(`/like/destroy/${this.id}`)
         .then(res => {
           this.permissionToLeaveALike=false
-          this.likes--
+          this.post.like.length--
         })
         .catch( e => {
           console.log(e.response.data.error)

@@ -34,7 +34,9 @@ export default {
   },
 	data() {
      return {
-      post:{},
+      post:{
+        like:{}
+      },
       id:this.$route.params.id,
     }
   },
@@ -45,7 +47,7 @@ export default {
 
   methods:{
       getPost(){
-        this.axios.get(`post/show/${this.id}`,{ credentials: true })
+        this.axios.get(`post/show/${this.id}`)
         .then((response) => {
           this.post= response.data[0];
         })
