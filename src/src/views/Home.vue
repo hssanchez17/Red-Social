@@ -1,7 +1,6 @@
 <template>
 	<div class="app">
     <Navbar></Navbar>
-    <EnsureAuthenticated></EnsureAuthenticated>
 		
 
   <div class="container" id="profile-info">
@@ -26,9 +25,9 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import PostList from '@/components/PostListComponent.vue'
-import EnsureAuthenticated from '@/components/EnsureAuthenticated.vue'
+
 export default {
-  components: {Navbar,PostList,EnsureAuthenticated},
+  components: {Navbar,PostList},
 
   data() {
     return {

@@ -2,7 +2,6 @@
 <div class="app">
 
   <Navbar></Navbar>
-   <EnsureAuthenticated></EnsureAuthenticated>
 
   <div class="container" id="profile-info">
 
@@ -32,12 +31,11 @@
 </template>
 
 <script>
-import EnsureAuthenticated from '@/components/EnsureAuthenticated.vue'
 import Navbar from '@/components/Navbar.vue'
 import PostList from '@/components/PostListComponent.vue'
 import UserInformation from '@/components/UserInformationComponent.vue'
 export default {
-  components: {Navbar,PostList,UserInformation,EnsureAuthenticated},
+  components: {Navbar,PostList,UserInformation},
 
   data() {
     return {
@@ -55,6 +53,7 @@ export default {
 
   methods:{
     getProfile(){
+
       this.axios.get('profile', { credentials: true })
       .then((response) => {
         this.user= response.data[0];
