@@ -15,45 +15,30 @@ module.exports={
 
     update (req,res){
         const promise=new Promise((resolve,reject)=>{
-             let profilePicture=req.user.profilePicture
-             if(req.file!=undefined) {
-                console.log('hola')
-                    cloudinary.uploadImage(req.file)
-                    .then(function(result){
-                        profilePicture= result.url
-                         resolve(profilePicture)
-                    })
-                }
+            let profilePicture=req.user.profilePicture
+            if(req.file!=undefined) {
+                cloudinary.uploadImage(req.file)
+                .then(function(result){
+                    profilePicture= result.url
+                    resolve(profilePicture)
+                })
+            }
             else resolve(profilePicture)
         })
 
-            promise.then((profilePicture)=>{
-                model.User.update({    
-                    name:req.body.name,
-                    //email:req.body.email,
-                    aboutMe: req.body.aboutMe,
-                    //password:hash,
-                    profilePicture: profilePicture
-                }, {where: {id: req.user.id}})
-                .then(function(){ res.send(200,{message:'El usuario se ha modificado exitosamente'})})
-                .catch(err => res.status(400).json('Error: ' + err));
+        promise.then((profilePicture)=>{
+            model.User.update({    
+                name:req.body.name,
+                //email:req.body.email,
+                aboutMe: req.body.aboutMe,
+                //password:hash,
+                profilePicture: profilePicture
+            }, {where: {id: req.user.id}})
+            .then(function(){ res.send(200,{message:'El usuario se ha modificado exitosamente'})})
+            .catch(err => res.status(400).json('Error: ' + err));
             })
 
-            promise.catch(err => res.status(400).json('Error: ' + err));
-
-        
-
-
-
-    },
-
-    updateProfilePicture(req,res){
-        /*cloudinary.uploadImage(req.file)
-         .then(function(result){
-         return result; })*/
-         console.log('EPAALEEEEEEEE')
-
-
+        promise.catch(err => res.status(400).json('Error: ' + err));
     },
 
     show(req,res){

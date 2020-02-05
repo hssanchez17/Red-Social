@@ -26,11 +26,13 @@ router.post('/login',login);//Listo
 router.post('/logout',logout);//Listo
 router.post('/check/auth',checkAuthentication);//Listo
 
-
+//Middlewares
+router.get('/ensureAuthenticated',checkAuthentication)
+router.get('/forwardAuthenticated',forwardAuthenticated)
 
 //Rutas del perfil
 router.get('/profile',userController.profile);//listo
-router.put('/profile/edit',ensureAuthenticated,upload.single('image'), userController.update);//listo
+router.put('/profile/edit',upload.single('image'), userController.update);//listo
 
 
 //Rutas del post
