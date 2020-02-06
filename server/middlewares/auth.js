@@ -3,7 +3,7 @@ module.exports = {
       if (req.isAuthenticated()) {
         return next();
       }
-     // res.send({error:'no esta logeado'});
+      res.send({error:'no esta logeado'});
     },
     forwardAuthenticated: function(req, res, next) {
       if (!req.isAuthenticated()) {

@@ -21,8 +21,8 @@ const friedController=require('./controllers/FollowController')
 const { ensureAuthenticated, forwardAuthenticated } = require('./middlewares/auth');
 
 //Auths' Routes
-router.post('/register',register);//Listo
-router.post('/login',login);//Listo
+router.post('/register',forwardAuthenticated,register);//Listo
+router.post('/login',forwardAuthenticated,login);//Listo
 router.post('/logout',logout);//Listo
 router.post('/check/auth',checkAuthentication);//Listo
 
@@ -40,7 +40,7 @@ router.post('/post/create',upload.single('image'), postController.store)//Listo
 router.get('/post/show/:id',postController.show)//Listo
 router.get('/post/ensurePostOwner/:id',postController.ensurePostOwner)
 router.put('/post/edit/:id',upload.single('image'),postController.update)//Listo
-router.get('/post/all',postController.getAllPosts)//Listo
+router.get('/post/all',ensureAuthenticated,postController.getAllPosts)//Listo
 router.delete('/post/destroy/:id',postController.destroy)//Listo
 
 //Ruta de los usuarios
