@@ -1,6 +1,5 @@
 <template>
 	<div class="app">
-
     <Navbar></Navbar>
 		
 
@@ -26,6 +25,7 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import PostList from '@/components/PostListComponent.vue'
+
 export default {
   components: {Navbar,PostList},
 

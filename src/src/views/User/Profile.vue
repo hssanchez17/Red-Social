@@ -31,7 +31,6 @@
 </template>
 
 <script>
-
 import Navbar from '@/components/Navbar.vue'
 import PostList from '@/components/PostListComponent.vue'
 import UserInformation from '@/components/UserInformationComponent.vue'
@@ -41,8 +40,8 @@ export default {
   data() {
     return {
       user:{
-        followers:{},
-        following:{},
+        followers:0,
+        following:0,
         posts:{}
       }
     };
@@ -54,9 +53,12 @@ export default {
 
   methods:{
     getProfile(){
+
       this.axios.get('profile', { credentials: true })
       .then((response) => {
         this.user= response.data[0];
+        this.user.followers=response.data[0].followers.length
+        this.user.following=response.data[0].following.length
       })
       .catch((e)=>{
         console.log('error' + e);

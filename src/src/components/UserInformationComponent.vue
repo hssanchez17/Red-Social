@@ -5,10 +5,10 @@
               <p>{{user.email}}</p>
               <p> <strong>{{user.posts.length}}</strong> Posts</p>
               <a :href="`/friend/list/followers/people/${user.id}`">
-                <p><strong>{{user.followers.length}}</strong> Followers</p>
+                <p><strong>{{user.followers}}</strong> Followers</p>
               </a>
               <a :href="`/friend/list/following/people/${user.id}`">
-                <p><strong>{{user.following.length}}</strong> Following</p>
+                <p><strong>{{user.following}}</strong> Following</p>
               </a>
     </div>
 

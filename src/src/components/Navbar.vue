@@ -30,6 +30,7 @@ export default {
     logOut(){
        this.axios.post('logout')
        .then(res => {
+          this.$cookie.delete('token', {domain: 'localhost'});
           this.$router.push({ path: `/` })
         })
         .catch( e => {

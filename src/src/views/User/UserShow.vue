@@ -45,9 +45,9 @@ export default {
   data() {
     return {
       user:{
-        followers:{},
-        following:{},
-        posts:{}
+        posts:{},
+        followers:0,
+        following:0,
       },
       id:this.$route.params.id,
       doIFollowYou:false,
@@ -66,6 +66,9 @@ export default {
       this.axios.get(`user/show/${this.id}`)
       .then((response) => {
         this.user= response.data[0];
+        this.user.followers=response.data[0].followers.length
+        this.user.following=response.data[0].following.length
+        console.log(this.user.following)
       })
       .catch((e)=>{
         console.log('error' + e);
@@ -86,7 +89,7 @@ export default {
       this.axios.post(`friend/create/${this.id}`)
       .then((response) => {
         this.doIFollowYou=true
-        this.followers++
+        this.user.followers++
       })
       .catch((e)=>{
         console.log('error' + e);
@@ -98,7 +101,7 @@ export default {
       this.axios.delete(`friend/destroy/${this.id}`)
       .then((response) => {
         this.doIFollowYou=false
-        this.followers--
+        this.user.followers--
       })
       .catch((e)=>{
         console.log('error' + e);

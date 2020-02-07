@@ -13,7 +13,7 @@ const morgan = require('morgan')
 const publicPath = path.join(__dirname, '..', 'public');
 
 app.use(cors({
-  origin:['http://localhost:8080'],
+  origin:['http://localhost:8081'],
    methods:['GET','POST','PUT','DELETE'],
    credentials: true // enable set cookie
 }))
@@ -40,9 +40,8 @@ app.set('PORT', process.env.PORT || 5000);
 
 app.use('/',require('./routes'))
 
-
 app.get('*', (req, res) => {
-    res.sendFile(path.join(publicPath, 'index.html'));
+    res.send('hola')
 });
 
 app.listen(app.get('PORT'), () => 

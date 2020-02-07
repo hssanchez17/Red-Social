@@ -21,16 +21,18 @@ const friedController=require('./controllers/FollowController')
 const { ensureAuthenticated, forwardAuthenticated } = require('./middlewares/auth');
 
 //Auths' Routes
-router.post('/register',register);//Listo
-router.post('/login',login);//Listo
+router.post('/register',forwardAuthenticated,register);//Listo
+router.post('/login',forwardAuthenticated,login);//Listo
 router.post('/logout',logout);//Listo
 router.post('/check/auth',checkAuthentication);//Listo
 
-
+//Middlewares
+router.get('/ensureAuthenticated',checkAuthentication)
+router.get('/forwardAuthenticated',forwardAuthenticated)
 
 //Rutas del perfil
 router.get('/profile',userController.profile);//listo
-router.put('/profile/edit',ensureAuthenticated,upload.single('image'), userController.update);//listo
+router.put('/profile/edit',upload.single('image'), userController.update);//listo
 
 
 //Rutas del post
@@ -38,7 +40,7 @@ router.post('/post/create',upload.single('image'), postController.store)//Listo
 router.get('/post/show/:id',postController.show)//Listo
 router.get('/post/ensurePostOwner/:id',postController.ensurePostOwner)
 router.put('/post/edit/:id',upload.single('image'),postController.update)//Listo
-router.get('/post/all',postController.getAllPosts)//Listo
+router.get('/post/all',ensureAuthenticated,postController.getAllPosts)//Listo
 router.delete('/post/destroy/:id',postController.destroy)//Listo
 
 //Ruta de los usuarios

@@ -6,12 +6,14 @@ import store from './store'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import VueCookie from 'vue-cookie';	
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
  
 Vue.use(VueAxios, axios)
 Vue.use(Vuelidate)
+Vue.use(VueCookie);
 
 
 // Agregamos la URL base de nuestra API

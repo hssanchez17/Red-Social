@@ -48,6 +48,8 @@
 			login(){
         		this.axios.post('login', this.userLogin)
         		.then(res => {
+                
+                this.$cookie.set('token',true, 1);
           			this.$router.push({ path: `/home` })
         		})
         		.catch( e => {
