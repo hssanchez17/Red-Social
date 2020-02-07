@@ -1,22 +1,7 @@
 <template>
   <div class="app">
     <Navbar></Navbar>
-
-    <div class="container">
-     <div class="row" id="listOfFollowersPeople">
-        <div class="col-md-4"  v-for="user in listOfFollowersPeople">
-          
-          <div class="card">
-            <a :href="'/user/show/'+ user.id">
-              <img :src="user.user.profilePicture"  id="profilePicture">
-              <div class="card-body">
-                <h5 class="card-title"> {{user.user.name}}</h5>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div> 
-  </div>  
+    <ListOfUsers :listOfUsers="listOfFollowersPeople"></ListOfUsers>
 
   </div>
 </template>
@@ -25,12 +10,10 @@
 
 
 <script>
-  import axios from 'axios'
   import Navbar from '@/components/Navbar.vue'
+  import ListOfUsers from '@/components/ListOfUsers.vue'
   export default {
-  components: {
-    Navbar
-  },
+  components: {Navbar,ListOfUsers},
 
   data(){
     return {
@@ -48,8 +31,7 @@
     getFollowersPeople(){
       this.axios.get(`friend/get/all/followers/${this.id}`)
         .then((response) => {
-          this.listOfFollowersPeople=response.data
-          console.log(this.listOfFollowersPeople)
+          this.listOfFollowersPeople=response.data[0].followers
         })
         .catch((e)=>{
           console.log('error' + e);

@@ -10,20 +10,7 @@
         <button type="submit" @click="searchUser()">Search</button>
       </div>
 
-      <div class="row" id="listOfSearchedUsers">
-        <div class="col-md-4"  v-for="user in listOfFilteredUsers">
-          
-          <div class="card">
-            <a :href="'/user/show/'+ user.id">
-              <img :src="user.profilePicture"  id="profilePicture">
-              <div class="card-body">
-                <h5 class="card-title"> {{user.name}}</h5>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div> 
-       
+      <ListOfUsers :listOfUsers="listOfFilteredUsers"></ListOfUsers>
     </div>
   </div>
 </template>
@@ -31,11 +18,9 @@
 <script>
   import axios from 'axios'
   import Navbar from '@/components/Navbar.vue'
+  import ListOfUsers from '@/components/ListOfUsers.vue'
   export default {
-  components: {
-    Navbar
-  },
-
+   components: {Navbar,ListOfUsers},
   data(){
   	return {
   		listOfUsers:[],

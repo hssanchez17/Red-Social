@@ -37,11 +37,11 @@ module.exports={
 
     getAllFollowing(req,res){
 
-    	model.Follow.findAll({
+    	model.User.findAll({
     		where:{
-    			userId:req.params.id
+    			id:req.params.id
     		},
-    		include:['friend']
+    		include:['following']
     	})
     	.then(function(friends){
 			res.send(friends)
@@ -51,11 +51,11 @@ module.exports={
 
     getAllFollowers(req,res){
 
-    	model.Follow.findAll({
+    	model.User.findAll({
     		where:{
-    			friendId:req.params.id
+    			id:req.params.id
     		},
-    		include:['user']
+    		include:['followers']
     	})
     	.then(function(friends){
 			res.send(friends)
