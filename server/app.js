@@ -13,7 +13,7 @@ const morgan = require('morgan')
 const publicPath = path.join(__dirname, '..', 'public');
 
 app.use(cors({
-  origin:['http://localhost:8080'],
+   origin:['http://localhost:8080'],
    methods:['GET','POST','PUT','DELETE'],
    credentials: true // enable set cookie
 }))

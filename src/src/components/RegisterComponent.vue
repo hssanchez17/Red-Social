@@ -124,7 +124,10 @@
 		          this.axios.post('register', this.userRegister)
 		          .then(res => {
 		          	alert('Successful registration can login')
-		            this.userRegister=''
+		            this.userRegister.name=''
+                this.userRegister.email=''
+                this.userRegister.password=''
+                this.userRegister.repeatPassword=''
 		          })
 		          .catch( e => {
 		            this.submitEmail=true   
