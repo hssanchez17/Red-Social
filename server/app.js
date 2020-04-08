@@ -10,7 +10,7 @@ const cookieSession = require('cookie-session');
 const morgan = require('morgan')
 
 
-const publicPath = path.join(__dirname, '..', 'public');
+const publicPath = path.join(__dirname, 'public');
 
 app.use(cors({
    origin:['http://localhost:8080'],
@@ -40,9 +40,10 @@ app.set('PORT', process.env.PORT || 5000);
 
 app.use('/',require('./routes'))
 
-app.get('*', (req, res) => {
-    res.send('hola')
-});
+const history = require('connect-history-api-fallback');
+app.use(history());
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.listen(app.get('PORT'), () => 
 console.log('Listening at ' + app.get('PORT')))
