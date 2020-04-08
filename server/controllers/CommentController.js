@@ -14,8 +14,7 @@ module.exports={
 	update (req,res){
         model.Comment.update(
         {comment: req.body.comment}, 
-        {where: {id: req.params.id}}
-        )
+        {where: {id: req.params.id}})
         .then(function(){ res.send(200,{message:'El usuario se ha modificado exitosamente'})})
         .catch(err => res.status(400).json('Error: ' + err));   
     },
