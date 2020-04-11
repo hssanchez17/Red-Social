@@ -30,9 +30,6 @@
     <ul class="list-group p-4" v-for="comment1 in comments">
       <li class="list-group-item">
           <div class="row">
-            <a :href="`/user/show/${comment1.userId}`" class="col text-center">
-              <img :src="post.imageUrl" id="profilePicture"  />
-            </a>
 
             <blockquote class="col">
               <a :href="`/comment/show/${comment1.id}`" class="col text-center">

@@ -10,7 +10,7 @@
         <div class="card">
 
           <div class="card-header bg-secondary">
-              <h3 class="card-title text-white">Upload an Image</h3>
+              <h3 class="card-title text-white">Crear un post</h3>
           </div>
 
           <div class="card-body text-center">
@@ -34,7 +34,7 @@
               <input 
               class="form-control"
               type="text" 
-              placeholder="Title for the image" 
+              placeholder="Titulo para el post" 
               v-model="$v.title.$model"  
               :class="{'is-invalid':$v.title.$error,'is-valid':!$v.title.$invalid}">
 
@@ -44,7 +44,7 @@
 
 
             <div class="form-group" id="DescriptionInput">
-              <textarea name="description" class="form-control" placeholder="Post description" v-model.trim="description" required></textarea>
+              <textarea name="description" class="form-control" placeholder="Descripcion para el post" v-model.trim="description" required></textarea>
             </div>
 
             <button class="btn btn-success" @click="onUpload()">Upload Post</button>

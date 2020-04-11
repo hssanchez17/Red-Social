@@ -31,7 +31,7 @@
 
                   <div class="col" id="ProfilePicture">
                     <a :href="`/user/show/${comment.userId}`">
-                      <img :src="profilePicture" width="90%" height="150px"/>
+                      <img :src="profilePicture" width="90%" height="300px"/>
                     </a>
                   </div>
 
@@ -165,7 +165,7 @@ export default {
   #image{
     width: 100%; 
     max-width:600px; /*ancho de tu imagen*/
-    height: 590px;
+    height: 600px;
     background: black;
   }
 </style>

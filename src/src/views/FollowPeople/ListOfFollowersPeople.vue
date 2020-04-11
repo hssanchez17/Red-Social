@@ -1,7 +1,19 @@
 <template>
   <div class="app">
     <Navbar></Navbar>
+
+    <div class="row row justify-content-md-center">
+
+        <div class="card">
+
+           <div class="card-header bg-secondary">
+              <h3 class="card-title text-white">Seguidores</h3>
+          </div> 
     <ListOfUsers :listOfUsers="listOfFollowersPeople"></ListOfUsers>
+
+</div>
+</div>
+
 
   </div>
 </template>
